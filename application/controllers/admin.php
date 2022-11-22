@@ -71,7 +71,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_barang');
+		$this->load->view('admin-partials/crud/tambah_barang');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -91,10 +91,6 @@ class admin extends CI_Controller
 		$_SESSION['simpan'] = "Berhasil";
 
 		redirect('admin/produk');
-	}
-
-	public function hapus_produk($id_barang) {
-		$this->db->delete('barang',array( 'ID_BARANG'  =>  $id_barang ));
 	}
 
 	public function kelola_user()
@@ -118,7 +114,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_user');
+		$this->load->view('admin-partials/crud/tambah_user');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -165,7 +161,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_marketplace');
+		$this->load->view('admin-partials/crud/tambah_marketplace');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -210,7 +206,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_warna');
+		$this->load->view('admin-partials/crud/tambah_warna');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -253,7 +249,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_varian');
+		$this->load->view('admin-partials/crud/tambah_varian');
 		$this->load->view('admin-partials/footer');
 	}
 

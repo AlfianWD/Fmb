@@ -5,18 +5,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class admin extends CI_Controller
 {
 
-	public function index()
-	{
-		$this->load->helpers('url');
-		$this->load->view('Login/index');
-	}
-
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper("url");
-		$this->load->model('Login_model');
 	}
+
+	public function index()
+	{
+		$this->load->model('Login_model');
+		$this->load->helpers('url');
+		$this->load->view('Login/index');
+	}
+
+
 
 	public function dashboard()
 	{
@@ -50,6 +52,17 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
+	public function add_pesanan()
+	{
+		$this->load->helper("url");
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/add');
+		$this->load->view('admin-partials/footer');
+	}
+
 	public function produk()
 	{
 		$this->load->helper("url");
@@ -64,33 +77,6 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/top-bar');
 		$this->load->view('admin-partials/barang', $data);
 		$this->load->view('admin-partials/footer');
-	}
-
-	public function tambah_barang() {
-		$this->load->helper("url");
-		$this->load->view('admin-partials/header');
-		$this->load->view('admin-partials/side-bar');
-		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/crud/tambah_barang');
-		$this->load->view('admin-partials/footer');
-	}
-
-	public function simpan_barang() {
-
-		$this->load->model('data_model');
-
-		$id_barang = $this->input->post('ID_BARANG');
-		$nm_barang = $this->input->post('NM_BARANG');
- 
-		$data = array(
-			'ID_BARANG' => $id_barang,
-			'NM_Barang' => $nm_barang
-			);
-		$this->db->insert('barang', $data);
-
-		$_SESSION['simpan'] = "Berhasil";
-
-		redirect('admin/produk');
 	}
 
 	public function kelola_user()
@@ -109,16 +95,18 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function tambah_user() {
+	public function tambah_user()
+	{
 		$this->load->helper("url");
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/crud/tambah_user');
+		$this->load->view('admin-partials/tambah_user');
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function simpan_user() {
+	public function simpan_user()
+	{
 
 		$this->load->model('data_model');
 
@@ -126,19 +114,17 @@ class admin extends CI_Controller
 		$password = $this->input->post('PASSWORD');
 		$nm_user = $this->input->post('NM_USER');
 		$akses = $this->input->post('AKSES');
- 
+
 		$data = array(
 			'USERNAME' => $username,
 			'PASSWORD' => $password,
 			'NM_USER' => $nm_user,
 			'AKSES' => $akses
-			);
+		);
 		$this->db->insert('user', $data);
-		
-		$_SESSION['simpan'] = "Berhasil";
-
 		redirect('admin/kelola_user');
 	}
+
 
 	public function marketplace()
 	{
@@ -156,34 +142,65 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function tambah_marketplace() {
+	public function tambah_marketplace()
+	{
 		$this->load->helper("url");
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/crud/tambah_marketplace');
+		$this->load->view('admin-partials/tambah_marketplace');
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function simpan_marketplace() {
+	public function simpan_marketplace()
+	{
 
 		$this->load->model('data_model');
 
 		$id_marketplace = $this->input->post('ID_MARKET');
 		$marketplace = $this->input->post('NM_MARKET');
 		$biaya_admin = $this->input->post('ADMIN');
- 
+
 		$data = array(
 			'ID_MARKET' => $id_marketplace,
 			'NM_MARKET' => $marketplace,
 			'ADMIN' => $biaya_admin,
-			);
+		);
 		$this->db->insert('marketplace', $data);
-
-		$_SESSION['simpan'] = "Berhasil";
-
 		redirect('admin/marketplace');
 	}
+
+	public function tambah_barang()
+	{
+		$this->load->helper("url");
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/tambah_barang');
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function simpan_barang()
+	{
+
+		$this->load->model('data_model');
+
+		$id_barang = $this->input->post('ID_BARANG');
+		$nm_barang = $this->input->post('NM_BARANG');
+
+		$data = array(
+			'ID_BARANG' => $id_barang,
+			'NM_Barang' => $nm_barang
+		);
+		$this->db->insert('barang', $data);
+		redirect('admin/produk');
+	}
+
+	public function hapus_produk($id_barang)
+	{
+		$this->db->delete('barang', array('ID_BARANG'  =>  $id_barang));
+	}
+
 
 	public function warna()
 	{
@@ -201,31 +218,61 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function tambah_warna() {
+	public function tambah_warna()
+	{
 		$this->load->helper("url");
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/crud/tambah_warna');
+		$this->load->view('admin-partials/tambah_warna');
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function simpan_warna() {
+	public function simpan_warna()
+	{
 
 		$this->load->model('data_model');
 
 		$id_warna = $this->input->post('ID_WARNA');
 		$warna = $this->input->post('WARNA');
- 
+
 		$data = array(
 			'ID_WARNA  ' => $id_warna,
 			'WARNA' => $warna
-			);
+		);
 		$this->db->insert('warna', $data);
-
-		$_SESSION['simpan'] = "Berhasil";
-
 		redirect('admin/warna');
+	}
+
+	function edit_warna($id_warna)
+	{
+		// $this->load->helper('url');
+		// $this->load->model('data_model');
+		// $data['warna'] = $this->data_model->data_warna($id_warna);
+
+		// $this->load->view('admin-partials/header');
+		// $this->load->view('admin-partials/side-bar');
+		// $this->load->view('admin-partials/top-bar');
+		// $this->load->view('admin-partials/add-warna', $data);
+		// $this->load->view('admin-partials/footer');
+	}
+	public function update_warna()
+	{
+		if ($this->input->post()) {
+			$this->load->helpers('url');
+			$this->load->model('data_model');
+			$data = array(
+				'ID_WARNA' => $this->input->post('id_warna'),
+				'WARNA' => $this->input->post('warna')
+			);
+
+			if (empty($data)) {
+				$this->data_model->update_warna(array('ID_WARNA' => $this->input->post('ID_WARNA', $data)), $data);
+
+				$this->session->set_flashdata('succes', 'Berhasil menyimpan');
+				redirect(base_url() . 'admin/warna');
+			}
+		}
 	}
 
 	public function varian()
@@ -244,31 +291,14 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function tambah_varian() {
+	public function tambah_varian()
+	{
 		$this->load->helper("url");
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/crud/tambah_varian');
+		$this->load->view('admin-partials/tambah_varian');
 		$this->load->view('admin-partials/footer');
-	}
-
-	public function simpan_varian() {
-
-		$this->load->model('data_model');
-
-		$id_varian = $this->input->post('ID_VARIAN');
-		$varian = $this->input->post('VARIAN');
- 
-		$data = array(
-			'ID_VARIAN  ' => $id_varian,
-			'VARIAN' => $varian
-			);
-		$this->db->insert('varian', $data);
-
-		$_SESSION['simpan'] = "Berhasil";
-
-		redirect('admin/varian');
 	}
 
 	public function dashboard_produksi()
@@ -302,6 +332,30 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/footer');
 	}
 
+
+	public function simpan_varian()
+	{
+
+		$this->load->model('data_model');
+
+		$id_varian = $this->input->post('ID_VARIAN');
+		$varian = $this->input->post('VARIAN');
+
+		$data = array(
+			'ID_VARIAN  ' => $id_varian,
+			'VARIAN' => $varian
+		);
+		$this->db->insert('varian', $data);
+		redirect('admin/varian');
+	}
+
+
+
+	public function produksi()
+	{
+		echo "halaman produksi";
+	}
+
 	public function packing()
 	{
 		echo "halaman packing";
@@ -320,7 +374,7 @@ class admin extends CI_Controller
 				case 'admin':
 					redirect('admin/dashboard');
 				case 'produksi':
-					redirect('admin/dashboard_produksi');
+					redirect('admin/produksi');
 				case 'packing':
 					redirect('admin/packing');
 					break;

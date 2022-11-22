@@ -6,16 +6,6 @@
                      <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_user">Tambah User</a>
                  </div>
                  <div class="card-body">
-                    <?php
-                        if(isset($_SESSION['simpan'])) :
-                    ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Data berhasil ditambahkan
-                        </div>
-                    <?php
-                        session_destroy();
-                        endif;
-                    ?>
                      <div class="table-responsive">
                          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                              <thead class="table-light">

@@ -1,21 +1,11 @@
-        <!-- Begin Page Content -->
+         <!-- Begin Page Content -->
          <div class="container-fluid">
              <div class="card shadow mb-4">
                  <div class="card-header py-4">
-                        <h5 class="m-0 font-weight-bolt text-primary float-left">Data Produk</h5>
-                        <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_barang">Tambah Produk</a>
+                     <h5 class="m-0 font-weight-bolt text-primary float-left">Data Produk</h5>
+                     <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_barang">Tambah Produk</a>
                  </div>
                  <div class="card-body">
-                    <?php
-                        if(isset($_SESSION['simpan'])) :
-                    ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            Data berhasil ditambahkan
-                        </div>
-                    <?php
-                        session_destroy();
-                        endif;
-                    ?>
                      <div class="table-responsive">
                          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                              <thead class="table-light">

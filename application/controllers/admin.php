@@ -87,6 +87,9 @@ class admin extends CI_Controller
 			'NM_Barang' => $nm_barang
 			);
 		$this->db->insert('barang', $data);
+
+		$_SESSION['simpan'] = "Berhasil";
+
 		redirect('admin/produk');
 	}
 
@@ -135,6 +138,9 @@ class admin extends CI_Controller
 			'AKSES' => $akses
 			);
 		$this->db->insert('user', $data);
+		
+		$_SESSION['simpan'] = "Berhasil";
+
 		redirect('admin/kelola_user');
 	}
 
@@ -177,6 +183,9 @@ class admin extends CI_Controller
 			'ADMIN' => $biaya_admin,
 			);
 		$this->db->insert('marketplace', $data);
+
+		$_SESSION['simpan'] = "Berhasil";
+
 		redirect('admin/marketplace');
 	}
 
@@ -217,6 +226,9 @@ class admin extends CI_Controller
 			'WARNA' => $warna
 			);
 		$this->db->insert('warna', $data);
+
+		$_SESSION['simpan'] = "Berhasil";
+
 		redirect('admin/warna');
 	}
 
@@ -257,6 +269,9 @@ class admin extends CI_Controller
 			'VARIAN' => $varian
 			);
 		$this->db->insert('varian', $data);
+
+		$_SESSION['simpan'] = "Berhasil";
+
 		redirect('admin/varian');
 	}
 

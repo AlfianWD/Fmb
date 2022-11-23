@@ -5,7 +5,8 @@
              <div class="card shadow mb-4">
                  <div class="card-header py-3">
                      <h5 class="m-0 font-weight-bolt text-primary float-left">Data Pesanan</h5>
-                     <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_pesanan">Tambah Pesanan</a>
+                     <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/add_pesanan">Tambah
+                         Pesanan</a>
                  </div>
                  <div class="card-body">
                      <div class="table-responsive">

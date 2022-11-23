@@ -24,6 +24,12 @@ class data_model extends CI_Model
     {
     }
 
+    function delete_barang($id_barang)
+    {
+        $this->db->where('ID_BARANG', $id_barang);
+        $this->db->delete('barang');
+    }
+
     function data_warna($id_warna)
     {
         $this->db->get('warna');
@@ -44,27 +50,30 @@ class data_model extends CI_Model
         $this->db->insert($this->table_warna, $data);
         return $this->db->insert_id();
     }
+
     function update_warna($where, $data)
     {
         // $this->db->get('warna');
         // $this->db->update($this->table_warna, $data, $where);
         // return $this->db->affected_row();
     }
-    function delete_warna($id)
-    {
-        $this->db->where('ID_WARNA', $id);
-        $this->db->delete($this->table);
 
-        return $this->db->affected_row();
+    function delete_warna($id_WARNA)
+    {
+        $this->db->where('ID_WARNA', $id_WARNA);
+        $this->db->delete('warna');
     }
+
     function add_varian()
     {
     }
     function update_varian()
     {
     }
-    function delete_varian()
+    function delete_varian($ID_VARIAN)
     {
+        $this->db->where('ID_VARIAN', $ID_VARIAN);
+        $this->db->delete('varian');
     }
     function add_user()
     {
@@ -72,16 +81,22 @@ class data_model extends CI_Model
     function update_user()
     {
     }
-    function delete_user()
+    
+    function delete_user($USERNAME)
     {
+        $this->db->where('USERNAME', $USERNAME);
+        $this->db->delete('user');
     }
+
     function add_marketplace()
     {
     }
     function update_marketplace()
     {
     }
-    function delete_marketplace()
+    function delete_marketplace($ID_MARKET)
     {
+        $this->db->where('ID_MARKET', $ID_MARKET);
+        $this->db->delete('marketplace');
     }
 }

@@ -52,14 +52,14 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-	public function add_pesanan()
+	public function tambah_pesanan()
 	{
 		$this->load->helper("url");
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/add');
+		$this->load->view('admin-partials/crud/tambah_pesanan');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -102,12 +102,20 @@ class admin extends CI_Controller
 			'NM_Barang' => $nm_barang
 		);
 		$this->db->insert('barang', $data);
+
+		$_SESSION['eksekusi'] = " Data berhasil di simpan";
+
 		redirect('admin/produk');
 	}
 
 	public function hapus_produk($id_barang)
 	{
-		$this->db->delete('barang', array('ID_BARANG'  =>  $id_barang));
+		$this->load->model('data_model');
+		$this->data_model->delete_barang($id_barang);
+
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
+		redirect('admin/produk');
 	}
 
 	public function kelola_user()
@@ -153,9 +161,21 @@ class admin extends CI_Controller
 			'AKSES' => $akses
 		);
 		$this->db->insert('user', $data);
+
+		$_SESSION['eksekusi'] = " Data berhasil di simpan";
+
 		redirect('admin/kelola_user');
 	}
 
+	public function hapus_user($username)
+	{
+		$this->load->model('data_model');
+		$this->data_model->delete_user($username);
+
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
+		redirect('admin/kelola_user');
+	}
 
 	public function marketplace()
 	{
@@ -198,6 +218,19 @@ class admin extends CI_Controller
 			'ADMIN' => $biaya_admin,
 		);
 		$this->db->insert('marketplace', $data);
+
+		$_SESSION['eksekusi'] = " Data berhasil di simpan";
+
+		redirect('admin/marketplace');
+	}
+
+	public function hapus_marketplace($ID_MARKET)
+	{
+		$this->load->model('data_model');
+		$this->data_model->delete_marketplace($ID_MARKET);
+
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
 		redirect('admin/marketplace');
 	}
 
@@ -240,6 +273,19 @@ class admin extends CI_Controller
 			'WARNA' => $warna
 		);
 		$this->db->insert('warna', $data);
+
+		$_SESSION['eksekusi'] = " Data berhasil di simpan";
+
+		redirect('admin/warna');
+	}
+
+	public function hapus_warna($ID_WARNA)
+	{
+		$this->load->model('data_model');
+		$this->data_model->delete_warna($ID_WARNA);
+
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
 		redirect('admin/warna');
 	}
 
@@ -300,6 +346,35 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
+	public function simpan_varian()
+	{
+
+		$this->load->model('data_model');
+
+		$id_varian = $this->input->post('ID_VARIAN');
+		$varian = $this->input->post('VARIAN');
+
+		$data = array(
+			'ID_VARIAN  ' => $id_varian,
+			'VARIAN' => $varian
+		);
+		$this->db->insert('varian', $data);
+
+		$_SESSION['eksekusi'] = " Data berhasil di simpan";
+
+		redirect('admin/varian');
+	}
+
+	public function hapus_varian($ID_VARIAN)
+	{
+		$this->load->model('data_model');
+		$this->data_model->delete_varian($ID_VARIAN);
+
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
+		redirect('admin/varian');
+	}
+
 	public function dashboard_produksi()
 	{
 		$this->load->helper("url");
@@ -330,25 +405,6 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/pesanan', $data);
 		$this->load->view('produksi-partials/footer');
 	}
-
-
-	public function simpan_varian()
-	{
-
-		$this->load->model('data_model');
-
-		$id_varian = $this->input->post('ID_VARIAN');
-		$varian = $this->input->post('VARIAN');
-
-		$data = array(
-			'ID_VARIAN  ' => $id_varian,
-			'VARIAN' => $varian
-		);
-		$this->db->insert('varian', $data);
-		redirect('admin/varian');
-	}
-
-
 
 	public function produksi()
 	{

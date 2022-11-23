@@ -6,6 +6,25 @@
                      <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_marketplace">Tambah Marketplace</a>
                  </div>
                  <div class="card-body">
+                    <?php
+                        if(isset($_SESSION['eksekusi'])):
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Data Berhasil Tersimpan!
+                        </div>
+                    <?php
+                        session_destroy();
+                    ?>
+                    <?php
+                        elseif(isset($_SESSION['delete'])):
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Data Berhasil Dihapus!
+                        </div>
+                    <?php
+                        session_destroy();
+                        endif;
+                    ?>
                      <div class="table-responsive">
                          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                              <thead class="table-light">
@@ -27,8 +46,33 @@
                                  <td>
                                      <a href="<?php echo base_url(); ?>purchasing/edit/"
                                          class="btn btn-success">Edit</a>
-                                     <a href="<?php echo base_url(); ?>purchasing/delete/"
-                                         class="btn btn-danger">Hapus</a>
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus<?php echo $data->ID_MARKET ?>">
+                                        Hapus
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="hapus<?php echo $data->ID_MARKET ?>" tabindex="-1" aria-labelledby="hapus<?php echo $data->ID_MARKET ?>Label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="hapus<?php echo $data->ID_MARKET ?>Label">Peringatan</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah Anda Yakin Ingin Menghapus Data Dari <?php echo $data->ID_MARKET ?> Ini ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">tidak</button>
+                                            <a href="<?php echo base_url("admin/hapus_marketplace/"). $data->ID_MARKET ?>" 
+                                               class="btn btn-danger">Hapus</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                  </td>
                              </tbody>
                              <?php } ?>

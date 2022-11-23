@@ -17,11 +17,11 @@
                         <form>
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <label for="inputEmail4">Kode Pesanan</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="">
+                                    <label for="kodePesan">Kode Pesanan</label>
+                                    <input type="text" class="form-control" id="kodePesan" placeholder="" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Marketplace</label>
+                                    <label for="markteplace">Marketplace</label>
                                     <select class="custom-select">
                                         <option selected>Pilih Marketplace</option>
                                         <option value="1">One</option>
@@ -33,36 +33,36 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <label for="inputAddress2">Ekspedisi</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="ekspedisi">Ekspedisi</label>
+                                    <input type="text" class="form-control" id="ekspedisi" placeholder="" required>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="inputAddress2">Username</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" placeholder="" required>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="inputAddress2">Total Harga</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="ttlHarga">Total Harga</label>
+                                    <input type="number" class="form-control" id="ttHarga" placeholder="" required>
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputAddress2">Diskon</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="diskon">Diskon</label>
+                                    <input type="number" class="form-control" id="diskon" placeholder="" required>
                                 </div>
 
                                 <div class="form-group col-md-3">
-                                    <label for="inputAddress2">Biaya Admin</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="biayaAdmin">Biaya Admin</label>
+                                    <input type="number" class="form-control" id="biayaAdmin">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
-                                    <label for="inputAddress2">Jumlah</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="jml">Jumlah</label>
+                                    <input type="number" class="form-control" id="jml" placeholder="" required>
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -97,29 +97,29 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <label for="inputAddress2">Custom Nama</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="namaCust">Custom Nama</label>
+                                    <input type="text" class="form-control" id="namaCust" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <label for="inputAddress2">Quote</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="quote">Quote</label>
+                                    <input type="text" class="form-control" id="quote" placeholder="">
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="inputJuml">Qty</label>
-                                    <input type="text" class="form-control" id="qty">
+                                    <input type="text" class="form-control" id="qty" required>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-5">
-                                    <label for="inputAddress2">Catatan</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="note">Catatan</label>
+                                    <input type="text" class="form-control" id="note" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-5">
-                                    <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    <label for="resi">Upload Resi</label>
+                                    <input type="file" class="form-control-file" id="resi" required>
                                 </div>
                             </div>
                             <div class="form-row">

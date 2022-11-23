@@ -125,7 +125,6 @@ class admin extends CI_Controller
 		redirect('admin/kelola_user');
 	}
 
-
 	public function marketplace()
 	{
 		$this->load->helper("url");
@@ -365,7 +364,6 @@ class admin extends CI_Controller
 	{
 		$this->load->model('Login_model');
 		$data['login'] = $this->Login_model->login();
-		// print_r($data['login']);
 		if (count((array)$data['login']) > 0) {
 			$this->session->set_userdata('logged_in', $data['login']);
 			print_r($data['login']);
@@ -374,9 +372,9 @@ class admin extends CI_Controller
 				case 'admin':
 					redirect('admin/dashboard');
 				case 'produksi':
-					redirect('admin/produksi');
+					redirect('produksi/dashboard');
 				case 'packing':
-					redirect('admin/packing');
+					redirect('packing/dashboard');
 					break;
 			}
 		} else {

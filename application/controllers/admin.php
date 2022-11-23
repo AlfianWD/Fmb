@@ -79,6 +79,37 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
+	public function tambah_barang()
+	{
+		$this->load->helper("url");
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/tambah_barang');
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function simpan_barang()
+	{
+
+		$this->load->model('data_model');
+
+		$id_barang = $this->input->post('ID_BARANG');
+		$nm_barang = $this->input->post('NM_BARANG');
+
+		$data = array(
+			'ID_BARANG' => $id_barang,
+			'NM_Barang' => $nm_barang
+		);
+		$this->db->insert('barang', $data);
+		redirect('admin/produk');
+	}
+
+	public function hapus_produk($id_barang)
+	{
+		$this->db->delete('barang', array('ID_BARANG'  =>  $id_barang));
+	}
+
 	public function kelola_user()
 	{
 		$this->load->helper("url");
@@ -101,7 +132,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_user');
+		$this->load->view('admin-partials/crud/tambah_user');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -148,7 +179,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_marketplace');
+		$this->load->view('admin-partials/crud/tambah_marketplace');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -169,38 +200,6 @@ class admin extends CI_Controller
 		$this->db->insert('marketplace', $data);
 		redirect('admin/marketplace');
 	}
-
-	public function tambah_barang()
-	{
-		$this->load->helper("url");
-		$this->load->view('admin-partials/header');
-		$this->load->view('admin-partials/side-bar');
-		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_barang');
-		$this->load->view('admin-partials/footer');
-	}
-
-	public function simpan_barang()
-	{
-
-		$this->load->model('data_model');
-
-		$id_barang = $this->input->post('ID_BARANG');
-		$nm_barang = $this->input->post('NM_BARANG');
-
-		$data = array(
-			'ID_BARANG' => $id_barang,
-			'NM_Barang' => $nm_barang
-		);
-		$this->db->insert('barang', $data);
-		redirect('admin/produk');
-	}
-
-	public function hapus_produk($id_barang)
-	{
-		$this->db->delete('barang', array('ID_BARANG'  =>  $id_barang));
-	}
-
 
 	public function warna()
 	{
@@ -224,7 +223,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_warna');
+		$this->load->view('admin-partials/crud/tambah_warna');
 		$this->load->view('admin-partials/footer');
 	}
 
@@ -297,7 +296,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/tambah_varian');
+		$this->load->view('admin-partials/crud/tambah_varian');
 		$this->load->view('admin-partials/footer');
 	}
 

@@ -600,7 +600,10 @@ class admin extends CI_Controller
 					break;
 			}
 		} else {
-			redirect('/'); //gagal
+			if(empty($data['login'])){
+				$_SESSION['login'] = " username dan password kosong ";
+				redirect("/");
+			}
 		}
 	}
 }

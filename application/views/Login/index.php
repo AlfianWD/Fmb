@@ -38,14 +38,24 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-12 justify-content-center">
                                 <div class="p-5">
+                                    <?php
+                                        if(isset($_SESSION['login'])):
+                                    ?>
+                                        <div class="alert alert-danger" role="alert">
+                                            username atau password salah!
+                                        </div>
+                                    <?php
+                                        session_destroy();
+                                        endif;
+                                    ?>
                                     <form action="<?php echo base_url('admin/login'); ?>" method="POST">
                                         <div class="form-group">
                                             <input type="text" class="form-control" id="username" name="username"
-                                                placeholder="Username">
+                                                placeholder="Username"  autocomplete='off'>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control" id="password" name="password"
-                                                placeholder="Password">
+                                                placeholder="Password"  autocomplete='off'>
                                         </div>
                                         <input class="btn btn-primary" type="submit" value="Login">
                                     </form>

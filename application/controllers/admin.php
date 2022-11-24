@@ -27,6 +27,9 @@ class admin extends CI_Controller
 		$this->db->from('table_dashboard_admin');
 		$query = $this->db->get();
 		$data['data_dash'] = $query->result();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');

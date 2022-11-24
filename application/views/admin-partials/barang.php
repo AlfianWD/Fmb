@@ -22,6 +22,15 @@
                             Data Berhasil dihapus!
                         </div>
                     <?php
+                     session_destroy();
+                    ?>
+                    <?php                        
+                        elseif(isset($_SESSION['diubah'])):
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Perubahan Data Berhasil Tersimpan!
+                        </div>
+                    <?php
                         session_destroy();
                         endif;
                     ?>
@@ -42,7 +51,7 @@
                                  <td><?php echo $data->ID_BARANG; ?></td>
                                  <td><?php echo $data->NM_BARANG; ?></td>
                                  <td>
-                                    <a href="<?php echo base_url(); ?>admin/edit_produk/"
+                                    <a href="<?php echo base_url("admin/edit_barang/"). $data->ID_BARANG ?>"
                                          class="btn btn-success">Edit</a>
                                 
                                     <!-- Button trigger modal -->
@@ -65,7 +74,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">tidak</button>
-                                            <a href="<?php echo base_url("admin/hapus_produk/"). $data->ID_BARANG ?>" 
+                                            <a href="<?php echo base_url("admin/hapus_barang/"). $data->ID_BARANG ?>" 
                                                class="btn btn-danger">Hapus</a>
                                         </div>
                                         </div>

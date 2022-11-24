@@ -19,7 +19,7 @@
                                  <div class="col mr-2">
                                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                          Total Pesanan</div>
-                                     <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $total; ?></div>
                                  </div>
                                  <div class="col-auto">
                                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -108,9 +108,9 @@
                                  <th>Status Produksi</th>
                                  <th>Status Packing</th>
                              </thead>
-                             <?php
-                                $no = 1;
-                                foreach ($data_dash as $data) {
+                                <?php
+                                    $no = 1;
+                                    foreach ($data_dash as $data) {
                                 ?>
                              <tbody class="table-light table-bordered text-center">
                                  <td><?php echo $no++ ?></td>

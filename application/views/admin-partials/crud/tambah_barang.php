@@ -9,7 +9,7 @@
     <div class="card-body">
     <form action="<?php echo base_url('admin/simpan_barang'); ?>" method="post">
         <div class="form-group row">
-            <label for="ID_BARANG" class="col-sm-2 col-form-label">ID Produk</label>
+            <label for="ID_BARANG validationDefault03" class="col-sm-2 col-form-label">ID Produk</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="ID_BARANG" name="ID_BARANG" placeholder="ID">
             </div>
@@ -19,6 +19,7 @@
             <label for="NM_Barang" class="col-sm-2 col-form-label">Nama Barang</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="NM_BARANG" name="NM_BARANG" placeholder="Nama Barang">
+                <div class="error"></div>
             </div>
         </div>
 

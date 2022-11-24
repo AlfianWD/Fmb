@@ -18,8 +18,6 @@ class admin extends CI_Controller
 		$this->load->view('Login/index');
 	}
 
-
-
 	public function dashboard()
 	{
 		$this->load->helper("url");
@@ -108,7 +106,7 @@ class admin extends CI_Controller
 		redirect('admin/produk');
 	}
 
-	public function hapus_produk($id_barang)
+	public function hapus_barang($id_barang)
 	{
 		$this->load->model('data_model');
 		$this->data_model->delete_barang($id_barang);
@@ -117,6 +115,45 @@ class admin extends CI_Controller
 
 		redirect('admin/produk');
 	}
+
+	public function edit_barang($id_barang)
+	{
+		$this->load->helper('url');
+		$this->load->model('data_model');
+
+		$where = array('ID_BARANG' => $id_barang);
+		$data['produk'] = $this->data_model->edit_barang($where,'barang')->result();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_barang', $data);
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function update_barang() 
+	{	
+		$this->load->model('data_model');
+
+		$id_barang = $this->input->post('ID_BARANG');
+		$nm_barang = $this->input->post('NM_BARANG');
+
+		$data = array(
+		'ID_BARANG' => $id_barang,
+		'NM_BARANG' => $nm_barang
+		);
+
+		$where = array(
+			'ID_BARANG' => $id_barang
+		);
+					
+			$this->data_model->update_barang($where, $data, 'barang');
+
+			$_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+
+			redirect('admin/produk');
+	}
+
 
 	public function kelola_user()
 	{
@@ -165,6 +202,48 @@ class admin extends CI_Controller
 		$_SESSION['eksekusi'] = " Data berhasil di simpan";
 
 		redirect('admin/kelola_user');
+	}
+
+	function edit_user($username)
+	{
+		$this->load->helper('url');
+		$this->load->model('data_model');
+		
+		$where = array('USERNAME' => $username);
+		$data['user'] = $this->data_model->edit_varian($where,'user')->result();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_user', $data);
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function update_user() 
+	{	
+		$this->load->model('data_model');
+
+		$username = $this->input->post('USERNAME');
+		$password = $this->input->post('PASSWORD');
+		$nm_user = $this->input->post('NM_USER');
+		$akses = $this->input->post('AKSES');
+
+		$data = array(
+		'USERNAME' => $username,
+		'PASSWORD' => $password,
+		'NM_USER' => $nm_user,
+		'AKSES' => $akses
+		);
+
+		$where = array(
+			'USERNAME' => $username
+		);
+					
+			$this->data_model->update_user($where, $data, 'user');
+
+			$_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+
+			redirect('admin/kelola_user');
 	}
 
 	public function hapus_user($username)
@@ -222,6 +301,46 @@ class admin extends CI_Controller
 		$_SESSION['eksekusi'] = " Data berhasil di simpan";
 
 		redirect('admin/marketplace');
+	}
+
+	function edit_marketplace($id_market)
+	{
+		$this->load->helper('url');
+		$this->load->model('data_model');
+		
+		$where = array('ID_MARKET' => $id_market);
+		$data['marketplace'] = $this->data_model->edit_varian($where,'marketplace')->result();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_marketplace', $data);
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function update_marketplace() 
+	{	
+		$this->load->model('data_model');
+
+		$id_market = $this->input->post('ID_MARKET');
+		$nm_market = $this->input->post('NM_MARKET');
+		$admin = $this->input->post('ADMIN');
+
+		$data = array(
+		'ID_MARKET' => $id_market,
+		'NM_MARKET' => $nm_market,
+		'ADMIN' => $admin
+		);
+
+		$where = array(
+			'ID_MARKET' => $id_market
+		);
+					
+			$this->data_model->update_marketplace($where, $data, 'marketplace');
+
+			$_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+
+			redirect('admin/marketplace');
 	}
 
 	public function hapus_marketplace($ID_MARKET)
@@ -291,34 +410,42 @@ class admin extends CI_Controller
 
 	function edit_warna($id_warna)
 	{
-		// $this->load->helper('url');
-		// $this->load->model('data_model');
-		// $data['warna'] = $this->data_model->data_warna($id_warna);
+		$this->load->helper('url');
+		$this->load->model('data_model');
+		
+		$where = array('ID_WARNA' => $id_warna);
+		$data['warna'] = $this->data_model->edit_warna($where,'warna')->result();
 
-		// $this->load->view('admin-partials/header');
-		// $this->load->view('admin-partials/side-bar');
-		// $this->load->view('admin-partials/top-bar');
-		// $this->load->view('admin-partials/add-warna', $data);
-		// $this->load->view('admin-partials/footer');
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_warna', $data);
+		$this->load->view('admin-partials/footer');
 	}
-	public function update_warna()
-	{
-		if ($this->input->post()) {
-			$this->load->helpers('url');
-			$this->load->model('data_model');
-			$data = array(
-				'ID_WARNA' => $this->input->post('id_warna'),
-				'WARNA' => $this->input->post('warna')
-			);
 
-			if (empty($data)) {
-				$this->data_model->update_warna(array('ID_WARNA' => $this->input->post('ID_WARNA', $data)), $data);
+	public function update_warna() 
+	{	
+		$this->load->model('data_model');
 
-				$this->session->set_flashdata('succes', 'Berhasil menyimpan');
-				redirect(base_url() . 'admin/warna');
-			}
-		}
+		$id_warna = $this->input->post('ID_WARNA');
+		$warna = $this->input->post('WARNA');
+
+		$data = array(
+		'ID_WARNA' => $id_warna,
+		'WARNA' => $warna
+		);
+
+		$where = array(
+			'ID_WARNA' => $id_warna
+		);
+					
+			$this->data_model->update_warna($where, $data, 'warna');
+
+			$_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+
+			redirect('admin/warna');
 	}
+
 
 	public function varian()
 	{
@@ -363,6 +490,44 @@ class admin extends CI_Controller
 		$_SESSION['eksekusi'] = " Data berhasil di simpan";
 
 		redirect('admin/varian');
+	}
+
+	function edit_varian($id_varian)
+	{
+		$this->load->helper('url');
+		$this->load->model('data_model');
+		
+		$where = array('ID_VARIAN' => $id_varian);
+		$data['varian'] = $this->data_model->edit_varian($where,'varian')->result();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_varian', $data);
+		$this->load->view('admin-partials/footer');
+	}
+
+	public function update_varian() 
+	{	
+		$this->load->model('data_model');
+
+		$id_varian = $this->input->post('ID_VARIAN');
+		$varian = $this->input->post('VARIAN');
+
+		$data = array(
+		'ID_VARIAN' => $id_varian,
+		'VARIAN' => $varian
+		);
+
+		$where = array(
+			'ID_VARIAN' => $id_varian
+		);
+					
+			$this->data_model->update_varian($where, $data, 'varian');
+
+			$_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+
+			redirect('admin/varian');
 	}
 
 	public function hapus_varian($ID_VARIAN)

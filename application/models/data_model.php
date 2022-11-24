@@ -24,6 +24,16 @@ class data_model extends CI_Model
     {
     }
 
+    function edit_barang($where, $table)
+    {
+        return $this->db->get_where($table,$where);
+    }
+
+    function update_barang($id_barang, $data)
+    {
+        return $this->db->update("barang", $data, $id_barang);
+    }
+
     function delete_barang($id_barang)
     {
         $this->db->where('ID_BARANG', $id_barang);
@@ -51,11 +61,14 @@ class data_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    function update_warna($where, $data)
+    function edit_warna($where, $table)
     {
-        // $this->db->get('warna');
-        // $this->db->update($this->table_warna, $data, $where);
-        // return $this->db->affected_row();
+        return $this->db->get_where($table,$where);
+    }
+
+    function update_warna($id_warna, $data)
+    {
+        return $this->db->update("warna", $data, $id_warna);
     }
 
     function delete_warna($id_WARNA)
@@ -67,9 +80,17 @@ class data_model extends CI_Model
     function add_varian()
     {
     }
-    function update_varian()
+    
+    function edit_varian($where, $table)
     {
+        return $this->db->get_where($table,$where);
     }
+
+    function update_varian($id_varian, $data)
+    {
+        return $this->db->update("varian", $data, $id_varian);
+    }
+
     function delete_varian($ID_VARIAN)
     {
         $this->db->where('ID_VARIAN', $ID_VARIAN);
@@ -78,8 +99,15 @@ class data_model extends CI_Model
     function add_user()
     {
     }
-    function update_user()
+    
+    function edit_user($where, $table)
     {
+        return $this->db->get_where($table,$where);
+    }
+
+    function update_user($username, $data)
+    {
+        return $this->db->update("user", $data, $username);
     }
     
     function delete_user($USERNAME)
@@ -91,9 +119,17 @@ class data_model extends CI_Model
     function add_marketplace()
     {
     }
-    function update_marketplace()
+
+    function edit_marketplace($where, $table)
     {
+        return $this->db->get_where($table,$where);
     }
+
+    function update_marketplace($id_market, $data)
+    {
+        return $this->db->update("marketplace", $data, $id_market);
+    }
+
     function delete_marketplace($ID_MARKET)
     {
         $this->db->where('ID_MARKET', $ID_MARKET);

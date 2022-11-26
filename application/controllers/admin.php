@@ -543,6 +543,25 @@ class admin extends CI_Controller
 		redirect('admin/varian');
 	}
 
+	public function produksi()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		$this->load->view('produksi-partials/header');
+		$this->load->view('produksi-partials/side-bar');
+		$this->load->view('produksi-partials/top-bar');
+		$this->load->view('produksi-partials/dashboard_produksi', $data);
+		$this->load->view('produksi-partials/footer');
+	}
+
 	public function dashboard_produksi()
 	{
 		$this->load->helper("url");
@@ -558,6 +577,7 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/dashboard_produksi', $data);
 		$this->load->view('produksi-partials/footer');
 	}
+
 	public function pesanan_produksi()
 	{
 		$this->load->helper("url");
@@ -574,14 +594,55 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/footer');
 	}
 
-	public function produksi()
-	{
-		echo "halaman produksi";
-	}
-
 	public function packing()
 	{
-		echo "halaman packing";
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/dashboard_packing', $data);
+		$this->load->view('packing-partials/footer');
+	}
+
+	public function dashboard_packing()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/dashboard_packing', $data);
+		$this->load->view('packing-partials/footer');
+	}
+
+	public function pesanan_packing()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_pesanan');
+		$this->db->select('*');
+		$this->db->from('table_pesanan');
+		$query = $this->db->get();
+		$data['data_pesan'] = $query->result();
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/pesanan', $data);
+		$this->load->view('packing-partials/footer');
 	}
 
 	public function login()

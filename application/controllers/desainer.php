@@ -21,12 +21,21 @@ class desainer extends CI_Controller
         $query = $this->db->get();
         $data['data_dash'] = $query->result();
 
-        // $data['total'] = $this->db->get('detail_pesanan')->num_rows();
-
         $this->load->view('desainer-partials/header');
         $this->load->view('desainer-partials/side-bar');
         $this->load->view('desainer-partials/top-bar');
         $this->load->view('desainer-partials/dashboard', $data);
+        $this->load->view('desainer-partials/footer');
+    }
+
+    public function add_design()
+    {
+        // $query = $this->db->get();
+        // $data['data_dash'] = $query->result();
+        $this->load->view('desainer-partials/header');
+        $this->load->view('desainer-partials/side-bar');
+        $this->load->view('desainer-partials/top-bar');
+        $this->load->view('desainer-partials/add_desain');
         $this->load->view('desainer-partials/footer');
     }
 }

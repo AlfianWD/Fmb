@@ -7,8 +7,7 @@ class admin extends CI_Controller
 
 	public function __construct()
 	{
-		parent::__construct();
-		$this->load->helper("url");
+		parent::__construct(); 
 		$this->load->model('data_model');
 	}
 
@@ -36,7 +35,7 @@ class admin extends CI_Controller
 
 	public function pesanan()
 	{
-		$this->load->helper("url");
+		$this->load->helper("form", "url");
 		$this->load->database();
 		$query = $this->db->get('table_pesanan');
 		$this->db->select('*');
@@ -64,17 +63,20 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/crud/tambah_pesanan', $data);
 		$this->load->view('admin-partials/footer');
 	}
+
 	public function simpan_pesanan()
 	{
 		$this->load->model('data_model');
+
 		// upload file
-		$config['upload_path']          = './uploads/resi/';
+		$config['upload_path']          = FCPATH.'./uploads/resi/';
 		$config['allowed_types']        = 'jpg|png|pdf';
 		$config['max_size']             = 10240;
-		$config['max_width']            = 10240;
-		$config['max_height']           = 7680;
+		// $config['max_width']            = 10240;
+		// $config['max_height']           = 7680;
 
 		$this->load->library('upload', $config);
+
 		date_default_timezone_set("Asia/Bangkok");
 		$id_pesan = $this->input->post('ID_PESAN');
 		$username = $this->input->post('USERNAME');
@@ -90,6 +92,7 @@ class admin extends CI_Controller
 		$id_market = $this->input->post('MARKETPLACE');
 		$id_barang = $this->input->post('BARANG');
 		$id_varian = $this->input->post('VARIAN');
+		$resi =  $this->input->post('RESI');
 
 
 		if (!$this->upload->do_upload('RESI')) {
@@ -111,7 +114,7 @@ class admin extends CI_Controller
 				'NOTE' => $note,
 				'RESI' => $resi,
 				'ID_WARNA' => $id_warna,
-				'ID_MARKET' => $id_market,
+				'ID_MARKET' => $id_market, 
 				'ID_BARANG' => $id_barang,
 				'ID_VARIAN' => $id_varian
 			);
@@ -606,6 +609,25 @@ class admin extends CI_Controller
 		redirect('admin/varian');
 	}
 
+	public function produksi()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		$this->load->view('produksi-partials/header');
+		$this->load->view('produksi-partials/side-bar');
+		$this->load->view('produksi-partials/top-bar');
+		$this->load->view('produksi-partials/dashboard_produksi', $data);
+		$this->load->view('produksi-partials/footer');
+	}
+
 	public function dashboard_produksi()
 	{
 		$this->load->helper("url");
@@ -621,6 +643,7 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/dashboard_produksi', $data);
 		$this->load->view('produksi-partials/footer');
 	}
+
 	public function pesanan_produksi()
 	{
 		$this->load->helper("url");
@@ -637,14 +660,55 @@ class admin extends CI_Controller
 		$this->load->view('produksi-partials/footer');
 	}
 
-	public function produksi()
-	{
-		echo "halaman produksi";
-	}
-
 	public function packing()
 	{
-		echo "halaman packing";
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/dashboard_packing', $data);
+		$this->load->view('packing-partials/footer');
+	}
+
+	public function dashboard_packing()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_dashboard_admin');
+		$this->db->select('*');
+		$this->db->from('table_dashboard_admin');
+		$query = $this->db->get();
+		$data['data_dash'] = $query->result();
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/dashboard_packing', $data);
+		$this->load->view('packing-partials/footer');
+	}
+
+	public function pesanan_packing()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$query = $this->db->get('table_pesanan');
+		$this->db->select('*');
+		$this->db->from('table_pesanan');
+		$query = $this->db->get();
+		$data['data_pesan'] = $query->result();
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/pesanan', $data);
+		$this->load->view('packing-partials/footer');
 	}
 
 	public function login()

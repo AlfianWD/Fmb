@@ -9,6 +9,7 @@ class desainer extends CI_Controller
     {
         parent::__construct();
         $this->load->helper("url");
+        $this->load->model('data_model');
     }
 
     public function dashboard()
@@ -28,14 +29,25 @@ class desainer extends CI_Controller
         $this->load->view('desainer-partials/footer');
     }
 
+    public function getQr($kode)
+    {
+        qrcode::png(
+            $kode,
+            $output = false,
+            $level = QR_ECLEVEL_H,
+            $size = 6,
+            $margin = 1
+        );
+    }
+
     public function add_design()
     {
-        // $query = $this->db->get();
-        // $data['data_dash'] = $query->result();
+        $data['pesanan'] = $this->data_model->getPesanan();
+
         $this->load->view('desainer-partials/header');
         $this->load->view('desainer-partials/side-bar');
         $this->load->view('desainer-partials/top-bar');
-        $this->load->view('desainer-partials/add_desain');
+        $this->load->view('desainer-partials/add_desain', $data);
         $this->load->view('desainer-partials/footer');
     }
 }

@@ -21,6 +21,10 @@ class data_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    function getPesanan()
+    {
+        return $this->db->get('detail_pesanan')->result();
+    }
     function getWarna()
     {
         return $this->db->get('warna')->result();

@@ -14,7 +14,7 @@
                         <a href="<?php echo site_url('admin/pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="card-body">
-                        <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" method="POST">
+                        <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" enctype="multipart/form-data" method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputEmail4">Kode Pesanan</label>
@@ -128,13 +128,13 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" name="RESI" required="">
+                                    <input type="file" name="RESI" id="RESI" required="">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-auto my-1">
                                     <input type="submit" class="btn btn-primary" value="Submit">
-                                    <a class="btn btn-danger" href="<?= base_url(); ?>admin/warna">exit</a>
+                                    <a class="btn btn-danger" href="<?= base_url(); ?>admin/pesanan">exit</a>
                                 </div>
                             </div>
                         </form>

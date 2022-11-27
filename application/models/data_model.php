@@ -5,6 +5,7 @@ use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 class data_model extends CI_Model
 {
     var $table_warna = 'warna';
+    var $table_pesan = 'table_pesanan';
 
     function __construct()
 
@@ -21,10 +22,12 @@ class data_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    function getPesanan()
+
+    function getPesanan($table, $where)
     {
-        return $this->db->get('detail_pesanan')->result();
+        return $this->db->get_where($where, $table);
     }
+
     function getWarna()
     {
         return $this->db->get('warna')->result();
@@ -161,5 +164,10 @@ class data_model extends CI_Model
     {
         $this->db->where('ID_MARKET', $ID_MARKET);
         $this->db->delete('marketplace');
+    }
+
+    function save_desain($id_pesan, $data)
+    {
+        return $this->db->update("detail_pesanan", $data, $id_pesan);
     }
 }

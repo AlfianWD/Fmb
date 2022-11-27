@@ -38,8 +38,8 @@
                                 <td><?php echo $data->CUSTOM_NM; ?></td>
                                 <td><?php echo $data->QUOTE; ?></td>
                                 <td>
-                                    <a href="<?php echo site_url('desainer/add_design/') ?>" type="button"
-                                        class="btn btn-sm btn-success">Desain</a>
+                                    <a href="<?php echo site_url('desainer/edit_design/' . $data->ID_PESAN) ?>"
+                                        type="button" class="btn btn-sm btn-success">Desain</a>
                                 </td>
                             </tbody>
                             <?php } ?>

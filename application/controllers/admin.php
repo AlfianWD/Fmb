@@ -7,7 +7,7 @@ class admin extends CI_Controller
 
 	public function __construct()
 	{
-		parent::__construct(); 
+		parent::__construct();
 		$this->load->model('data_model');
 	}
 
@@ -69,11 +69,9 @@ class admin extends CI_Controller
 		$this->load->model('data_model');
 
 		// upload file
-		$config['upload_path']          = FCPATH.'./uploads/resi/';
+		$config['upload_path']          = FCPATH . './uploads/resi/';
 		$config['allowed_types']        = 'jpg|png|pdf';
 		$config['max_size']             = 10240;
-		// $config['max_width']            = 10240;
-		// $config['max_height']           = 7680;
 
 		$this->load->library('upload', $config);
 
@@ -94,6 +92,13 @@ class admin extends CI_Controller
 		$id_varian = $this->input->post('VARIAN');
 		$resi =  $this->input->post('RESI');
 
+		// Generate QR Code
+		$params['data'] = $id_pesan;
+		$params['level'] = 'H';
+		$params['size'] = 10;
+		$params['savename'] = 'uploads/qr/' . 'QR-' . $id_pesan . '.png';
+		$qr = $this->ciqrcode->generate($params);
+
 
 		if (!$this->upload->do_upload('RESI')) {
 			echo ('Gagal disimpan');
@@ -106,6 +111,7 @@ class admin extends CI_Controller
 				'USERNAME' => $username,
 				'TOTAL_BAYAR' => $total,
 				'DISKON' => $diskon,
+				'QR_CODE' => $qr,
 				'PENGIRIMAN' => $pengiriman,
 				'QTY' => $qty,
 				'CUSTOM_NM' => $custom_nama,
@@ -114,7 +120,7 @@ class admin extends CI_Controller
 				'NOTE' => $note,
 				'RESI' => $resi,
 				'ID_WARNA' => $id_warna,
-				'ID_MARKET' => $id_market, 
+				'ID_MARKET' => $id_market,
 				'ID_BARANG' => $id_barang,
 				'ID_VARIAN' => $id_varian
 			);
@@ -737,5 +743,18 @@ class admin extends CI_Controller
 				redirect("/");
 			}
 		}
+	}
+
+	public function edit_design($id_barang)
+	{
+		// $data['pesanan'] = $this->data_model->getPesanan();
+		$where = array('ID_BARANG' => $id_barang);
+		$data['pesanan'] = $this->data_model->getPesanan($where, 'table_pesanan')->result();
+
+		$this->load->view('desainer-partials/header');
+		$this->load->view('desainer-partials/side-bar');
+		$this->load->view('desainer-partials/top-bar');
+		$this->load->view('desainer-partials/add_desain', $data);
+		$this->load->view('desainer-partials/footer');
 	}
 }

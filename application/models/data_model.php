@@ -50,10 +50,6 @@ class data_model extends CI_Model
         return $this->db->insert('detail_pesanan', $data);
     }
 
-    function edit_pesanan($where, $table)
-    {
-    }
-
     function edit_barang($where, $table)
     {
         return $this->db->get_where($table, $where);

@@ -8,6 +8,16 @@
                      <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_pesanan">Tambah Pesanan</a>
                  </div>
                  <div class="card-body">
+                 <?php
+                        if(isset($_SESSION['eksekusi'])):
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Data Berhasil Tersimpan!
+                        </div>
+                    <?php
+                     session_destroy();
+                        endif;
+                    ?>
                      <div class="table-responsive">
                          <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                              <thead class="table-light">
@@ -22,10 +32,10 @@
                                  <th>Nama</th>
                                  <th>Quote</th>
                              </thead>
-                             <?php
+                            <?php
                                 $no = 1;
                                 foreach ($data_pesan as $data) {
-                                ?>
+                            ?>
                              <tbody class="table-light">
                                  <td><?php echo $no++ ?></td>
                                  <td><?php echo $data->ID_PESAN; ?></td>

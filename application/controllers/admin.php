@@ -127,7 +127,7 @@ class admin extends CI_Controller
 			$simpan = $this->data_model->add_pesanan($data);
 
 			if ($simpan) {
-				$this->session->set_flashdata('msg_success', 'Data sudah tersimpan');
+				$_SESSION['eksekusi'] = " Data berhasil di simpan";
 			} else {
 				$this->session->set_flashdata('msg_error', 'Data gagal disimpan');
 			}
@@ -147,7 +147,7 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/barang');
+		$this->load->view('admin-partials/barang', $data);
 		$this->load->view('admin-partials/footer');
 	}
 

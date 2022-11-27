@@ -1,7 +1,11 @@
 <?php
+
+use JetBrains\PhpStorm\Internal\ReturnTypeContract;
+
 class data_model extends CI_Model
 {
     var $table_warna = 'warna';
+    var $table_pesan = 'table_pesanan';
 
     function __construct()
 
@@ -13,20 +17,42 @@ class data_model extends CI_Model
 
     function tabel_dashboard()
     {
-        $data = $this->db->query('SELECT * FROM table_dashboard_admin');
-        return $data->row();
+        $this->db->select('*');
+        $this->db->from('table_dashboard_admin');
+        $query = $this->db->get();
+        return $query->result();
     }
 
-    function add_pesanan($data, $table)
+    function getPesanan($table, $where)
     {
+        return $this->db->get_where($where, $table);
     }
-    function edit_pesanan($where, $table)
+
+    function getWarna()
     {
+        return $this->db->get('warna')->result();
+    }
+    function getVarian()
+    {
+        return $this->db->get('varian')->result();
+    }
+    function getMarket()
+    {
+        return $this->db->get('marketplace')->result();
+    }
+    function getBarang()
+    {
+        return $this->db->get('barang')->result();
+    }
+
+    function add_pesanan($data)
+    {
+        return $this->db->insert('detail_pesanan', $data);
     }
 
     function edit_barang($where, $table)
     {
-        return $this->db->get_where($table,$where);
+        return $this->db->get_where($table, $where);
     }
 
     function update_barang($id_barang, $data)
@@ -63,7 +89,7 @@ class data_model extends CI_Model
 
     function edit_warna($where, $table)
     {
-        return $this->db->get_where($table,$where);
+        return $this->db->get_where($table, $where);
     }
 
     function update_warna($id_warna, $data)
@@ -80,10 +106,10 @@ class data_model extends CI_Model
     function add_varian()
     {
     }
-    
+
     function edit_varian($where, $table)
     {
-        return $this->db->get_where($table,$where);
+        return $this->db->get_where($table, $where);
     }
 
     function update_varian($id_varian, $data)
@@ -99,17 +125,17 @@ class data_model extends CI_Model
     function add_user()
     {
     }
-    
+
     function edit_user($where, $table)
     {
-        return $this->db->get_where($table,$where);
+        return $this->db->get_where($table, $where);
     }
 
     function update_user($username, $data)
     {
         return $this->db->update("user", $data, $username);
     }
-    
+
     function delete_user($USERNAME)
     {
         $this->db->where('USERNAME', $USERNAME);
@@ -122,7 +148,7 @@ class data_model extends CI_Model
 
     function edit_marketplace($where, $table)
     {
-        return $this->db->get_where($table,$where);
+        return $this->db->get_where($table, $where);
     }
 
     function update_marketplace($id_market, $data)
@@ -134,5 +160,10 @@ class data_model extends CI_Model
     {
         $this->db->where('ID_MARKET', $ID_MARKET);
         $this->db->delete('marketplace');
+    }
+
+    function save_desain($id_pesan, $data)
+    {
+        return $this->db->update("detail_pesanan", $data, $id_pesan);
     }
 }

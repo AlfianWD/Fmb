@@ -14,19 +14,21 @@
                         <a href="<?php echo site_url('admin/pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" enctype="multipart/form-data" method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputEmail4">Kode Pesanan</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="">
+                                    <input type="text" class="form-control" name="ID_PESAN" id="ID_PESAN" autocomplete="off" placeholder=""
+                                        required="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4">Marketplace</label>
-                                    <select class="custom-select">
+                                    <select class="custom-select" name="MARKETPLACE">
                                         <option selected>Pilih Marketplace</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php foreach ($market as $marketplace) { ?>
+                                        <option value="<?php echo $marketplace->ID_MARKET; ?>">
+                                            <?php echo $marketplace->NM_MARKET; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -34,100 +36,105 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Ekspedisi</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="text" class="form-control" name="PENGIRIMAN" id="PENGIRIMAN" autocomplete="off"
+                                        placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="inputAddress2">Username</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name="USERNAME" id="USERNAME" placeholder="" autocomplete="off"
+                                        required="">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <label for="inputAddress2">Total Harga</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="totalHarga">Total Harga</label>
+                                    <input type="number" class="form-control" name="TOTAL" id="TOTAL" autocomplete="off" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="inputAddress2">Diskon</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <label for="diskon">Diskon</label>
+                                    <input type="number" class="form-control" name="DISKON" id="DISKON" autocomplete="off" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label for="inputAddress2">Biaya Admin</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="number" class="form-control" name="ADMIN" id="ADMIN" autocomplete="off" placeholder="">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="inputAddress2">Jumlah</label>
-                                    <input type="number" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="number" class="form-control" name="JUMLAH_PESAN" autocomplete="off" id="JUMLAH_PESAN"
+                                        placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label>Nama Produk</label>
-                                    <select class="custom-select">
+                                    <select class="custom-select" name="BARANG">
                                         <option selected>Pilih Produk</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php foreach ($barang as $produk) { ?>
+                                        <option value="<?php echo $produk->ID_BARANG; ?>">
+                                            <?php echo $produk->NM_BARANG; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label>Varian</label>
-                                    <select class="custom-select">
+                                    <select class="custom-select" name="VARIAN">
                                         <option selected>Pilih Varian</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php foreach ($varian as $varian) { ?>
+                                        <option value="<?php echo $varian->ID_VARIAN; ?>">
+                                            <?php echo $varian->VARIAN; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label>Warna</label>
-                                    <select class="custom-select">
+                                    <select class="custom-select" name="WARNA">
                                         <option selected>Pilih Warna</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        <?php foreach ($warna as $warna) { ?>
+                                        <option value="<?php echo $warna->ID_WARNA; ?>">
+                                            <?php echo $warna->WARNA; ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Custom Nama</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="text" class="form-control" name="CUSTOM_NAMA" id="CUSTOM_NAMA" autocomplete="off"
+                                        placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Quote</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="text" class="form-control" name="QUOTE" id="QUOTE" autocomplete="off" placeholder="">
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="inputJuml">Qty</label>
-                                    <input type="text" class="form-control" id="qty">
+                                    <input type="text" class="form-control" name="QTY" id="QTY">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Catatan</label>
-                                    <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                                    <input type="text" class="form-control" name="NOTE" id="NOTE" autocomplete="off" placeholder="">
                                 </div>
 
-                                <div class="form-group col-md-5">
+                                <div class="form-group col-md-6">
                                     <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    <input type="file" name="RESI" id="RESI" required="">
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-2">
-                                    <button type="submit" class="btn btn-sm btn-primary">Simpan</button>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="submit" class="btn btn-sm btn-success">Preview</button>
+                                <div class="col-auto my-1">
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                    <a class="btn btn-danger" href="<?= base_url(); ?>admin/pesanan">exit</a>
                                 </div>
                             </div>
                         </form>
@@ -135,7 +142,7 @@
                 </div>
             </div>
 
-            <div class="col">
+            <!-- <div class="col">
                 <div class="card mb-3">
                     <div class="card-header">
                         <h6 class="text-primary text-center">QR Code</h6>
@@ -143,6 +150,6 @@
                     <div class="card-body">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- /.container-fluid -->

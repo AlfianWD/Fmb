@@ -3,7 +3,7 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="<?= base_url(); ?>admin/dashboard_produksi">
+        href="<?= base_url(); ?>desainer/dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-user"></i>
         </div>

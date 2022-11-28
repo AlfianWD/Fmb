@@ -13,6 +13,21 @@ class desainer extends CI_Controller
     }
 
     public function dashboard()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$data['data_dash'] = $this->data_model->tabel_dashboard();
+
+		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		$this->load->view('desainer-partials/header');
+		$this->load->view('desainer-partials/side-bar');
+		$this->load->view('desainer-partials/top-bar');
+		$this->load->view('desainer-partials/dashboard', $data);
+		$this->load->view('desainer-partials/footer');
+	}
+
+    public function desain()
     {
         $this->load->helper("url");
         $this->load->database();
@@ -25,7 +40,7 @@ class desainer extends CI_Controller
         $this->load->view('desainer-partials/header');
         $this->load->view('desainer-partials/side-bar');
         $this->load->view('desainer-partials/top-bar');
-        $this->load->view('desainer-partials/dashboard', $data);
+        $this->load->view('desainer-partials/desain', $data);
         $this->load->view('desainer-partials/footer');
     }
 
@@ -53,28 +68,29 @@ class desainer extends CI_Controller
 
         $id_pesan = $this->input->post('ID_PESAN');
         $desain =  $this->input->post('DESAIN');
+        $DESAIN_STATUS = $this->input->post('DESAIN_STATUS');
 
         if (!$this->upload->do_upload('DESAIN')) {
-            echo ('Gagal disimpan');
+           
         } else {
             $desain = $this->upload->data();
             $desain = $desain['file_name'];
+            $DESAIN_STATUS = 'Selesai';
 
             $data = array(
-                // 'ID_PESAN' => $id_pesan,
-                'DESAIN' => $desain
+                'DESAIN' => $desain,
+                'DESAIN_STATUS' => $DESAIN_STATUS
             );
 
             $where = array(
                 'ID_PESAN' => $id_pesan
             );
-            // $where = $id_pesan;
 
             $this->data_model->save_desain($where, $data, 'detail_pesanan');
 
             $_SESSION['diubah'] = "Perubahan data berhasil di simpan";
 
-            redirect('desainer/dashboard');
+            redirect('desainer/desain');
         }
     }
 }

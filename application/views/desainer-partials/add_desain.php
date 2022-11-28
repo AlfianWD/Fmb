@@ -20,7 +20,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Kode Pesanan :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN"
+                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN" readonly
                                             value="<?php echo $data->ID_PESAN ?>">
                                     </div>
                                 </div>
@@ -28,7 +28,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Nama Barang :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan"
+                                        <input type="text" class="form-control" id="kodePesanan" readonly
                                             value="<?php echo $data->NM_BARANG ?>">
                                     </div>
                                 </div>
@@ -36,7 +36,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Pilihan Varian :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan"
+                                        <input type="text" class="form-control" id="kodePesanan" readonly
                                             value="<?php echo $data->VARIAN ?>">
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Pilihan Warna :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan"
+                                        <input type="text" class="form-control" id="kodePesanan" readonly
                                             value="<?php echo $data->WARNA ?>">
                                     </div>
                                 </div>
@@ -52,7 +52,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Custom Nama :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan"
+                                        <input type="text" class="form-control" id="kodePesanan" readonly
                                             value="<?php echo $data->CUSTOM_NM ?>">
                                     </div>
                                 </div>
@@ -60,19 +60,33 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Custom Quote :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan"
+                                        <input type="text" class="form-control" id="kodePesanan" readonly
                                             value="<?php echo $data->QUOTE ?>">
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
-                                    <label for="kodePesanan" class="col-md-3 col-form-label">Custom Quote :</label>
+                                    <label for="kodePesanan" class="col-md-3 col-form-label">Pilih Gambar :</label>
                                     <div class="col-md-8">
-                                        <input type="file" name="DESAIN"></input>
+                                        <input type="file" name="DESAIN" value="<?php echo $data->DESAIN ?>">
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-primary" value="Submit">
-                                <a href="" type="submit" class="btn btn-md btn-success">Kembali</a>
+                                <div class="form-row">
+                                    <div class="col-md-3">Checkbox :</div>
+                                    <div class="col-md-8">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="DESAIN_STATUS">
+                                        <label class="form-check-label" for="DESAIN_STATUS" >
+                                        Apakah Sudah Selesai?
+                                        </label>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto my-2">
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                    <a href="<?php echo base_url('desainer/desain'); ?>" type="submit" class="btn btn-md btn-success">Kembali</a>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -87,8 +101,9 @@
                                 <img class="card-img-top" alt="Card image cap"
                                     src="<?php echo base_url(); ?><?php echo $data->QR_CODE; ?>">
                             </div>
-
-                            <a href="" type="button" class="btn btn-sm btn-success">Copy</a>
+                            <div class="col-auto my-2">
+                                <a href="" type="button" class="btn btn-sm btn-success">Copy</a>
+                            </div>
                             <?php } ?>
                             </br>
 

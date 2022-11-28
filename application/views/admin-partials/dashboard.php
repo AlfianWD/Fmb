@@ -105,6 +105,7 @@
                                  <th>Barang</th>
                                  <th>Total</th>
                                  <th>Status Cetak</th>
+                                 <th>Status Desain</th>
                                  <th>Status Produksi</th>
                                  <th>Status Packing</th>
                              </thead>
@@ -119,6 +120,7 @@
                                  <td><?php echo $data->NM_BARANG; ?></td>
                                  <td><?php echo $data->TOTAL_BAYAR; ?></td>
                                  <td><?php echo $data->ADMIN_STATUS; ?></td>
+                                 <td><?php echo $data->DESAIN_STATUS; ?></td>
                                  <td><?php echo $data->PRODUKSI_STATUS; ?></td>
                                  <td><?php echo $data->PACKING_STATUS; ?></td>
                              </tbody>

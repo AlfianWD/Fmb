@@ -14,6 +14,16 @@
                             <h5 class="text-primary text-center">Detail Pesanan</h5>
                         </div>
                         <div class="card-body">
+                            <?php
+                                if(isset($_SESSION['gagal'])):
+                            ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    Data gagal Tersimpan, silakan masukan gambar terlebih dahulu!
+                                </div>
+                            <?php
+                                session_destroy();
+                                endif;
+                            ?>  
                             <?php foreach ($pesanan as $data) { ?>
                             <form action="<?php echo base_url('desainer/simpan_desain'); ?>"
                                 enctype="multipart/form-data" method="POST">
@@ -69,20 +79,11 @@
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Pilih Gambar :</label>
                                     <div class="col-md-8">
                                         <input type="file" name="DESAIN" value="<?php echo $data->DESAIN ?>">
+                                        <div class="invalid-tooltip">
+                                            silakan masukan gambar                                        
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col-md-3">Checkbox :</div>
-                                    <div class="col-md-8">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="DESAIN_STATUS">
-                                        <label class="form-check-label" for="DESAIN_STATUS" >
-                                        Apakah Sudah Selesai?
-                                        </label>
-                                    </div>
-                                    </div>
-                                </div>
-
                                 <div class="col-auto my-2">
                                     <input type="submit" class="btn btn-primary" value="Submit">
                                     <a href="<?php echo base_url('desainer/desain'); ?>" type="submit" class="btn btn-md btn-success">Kembali</a>

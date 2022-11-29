@@ -41,7 +41,7 @@ class desainer extends CI_Controller
         $this->load->view('desainer-partials/side-bar');
         $this->load->view('desainer-partials/top-bar');
         $this->load->view('desainer-partials/desain', $data);
-        $this->load->view('desainer-partials/footer');
+        $this->load->view('desainer-partials/footer');   
     }
 
 
@@ -71,8 +71,19 @@ class desainer extends CI_Controller
         $DESAIN_STATUS = $this->input->post('DESAIN_STATUS');
 
         if (!$this->upload->do_upload('DESAIN')) {
-           
+            $where = array('ID_PESAN' => $id_pesan);
+            $data['pesanan'] = $this->data_model->getPesanan($where, 'table_pesanan')->result();
+    
+            $_SESSION['gagal'] = "Perubahan data gagal di simpan";
+
+            $this->load->view('desainer-partials/header');
+            $this->load->view('desainer-partials/side-bar');
+            $this->load->view('desainer-partials/top-bar');
+            $this->load->view('desainer-partials/add_desain', $data);
+            $this->load->view('desainer-partials/footer');
         } else {
+            $pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'table_pesanan')->result();
+            unlink(FCPATH."/uploads/desain/".$pesanan[0]->DESAIN);
             $desain = $this->upload->data();
             $desain = $desain['file_name'];
             $DESAIN_STATUS = 'Selesai';
@@ -88,7 +99,7 @@ class desainer extends CI_Controller
 
             $this->data_model->save_desain($where, $data, 'detail_pesanan');
 
-            $_SESSION['diubah'] = "Perubahan data berhasil di simpan";
+            $_SESSION['disimpan'] = "Perubahan data berhasil di simpan";
 
             redirect('desainer/desain');
         }

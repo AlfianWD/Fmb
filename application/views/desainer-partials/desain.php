@@ -7,6 +7,16 @@
                     <h5 class="font-weight-bolt text-primary float-left">Desain Pesanan</h5>
                 </div>
                 <div class="card-body">
+                    <?php
+                        if(isset($_SESSION['disimpan'])):
+                    ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            Data Berhasil Tersimpan!
+                        </div>
+                    <?php
+                        session_destroy();
+                        endif;
+                    ?>
                     <div class="table-responsive">
                         <table class="table table-bordered text-center" id="dataTable">
                             <thead class="table-light">

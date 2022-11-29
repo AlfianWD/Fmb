@@ -67,11 +67,9 @@ class admin extends CI_Controller
 	public function simpan_pesanan()
 	{
 		$this->load->model('data_model');
-
-		// upload file
-		$config['upload_path']          = FCPATH . './uploads/resi/';
-		$config['allowed_types']        = 'jpg|png|pdf';
-		$config['max_size']             = 10240;
+        $config['upload_path']          = FCPATH . './uploads/resi/';
+        $config['allowed_types']        = 'jpeg|jpg|png|pdf';
+        $config['max_size']             = 10240;
 
 		$this->load->library('upload', $config);
 
@@ -101,7 +99,18 @@ class admin extends CI_Controller
 
 
 		if (!$this->upload->do_upload('RESI')) {
-			echo ('Gagal disimpan');
+			$data['market'] = $this->data_model->getMarket();
+			$data['warna'] = $this->data_model->getWarna();
+			$data['barang'] = $this->data_model->getBarang();
+			$data['varian'] = $this->data_model->getVarian();
+
+			$_SESSION['gagal'] = "Data gagal di simpan";
+
+			$this->load->view('admin-partials/header');
+			$this->load->view('admin-partials/side-bar');
+			$this->load->view('admin-partials/top-bar');
+			$this->load->view('admin-partials/crud/tambah_pesanan', $data);
+			$this->load->view('admin-partials/footer');
 		} else {
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];

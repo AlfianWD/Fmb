@@ -24,7 +24,15 @@ class admin extends CI_Controller
 		$this->load->database();
 		$data['data_dash'] = $this->data_model->tabel_dashboard();
 
+		//  Jumlah Pesanan
 		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		// Jumlah Cetak Design
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('DESAIN_STATUS', 'Selesai');
+		$query=$this->db->get();
+		$data['desain_status'] = $query->num_rows();
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
@@ -71,6 +79,7 @@ class admin extends CI_Controller
         $config['allowed_types']        = 'jpeg|jpg|png|pdf';
         $config['max_size']             = 10240;
 
+
 		$this->load->library('upload', $config);
 
 		date_default_timezone_set("Asia/Bangkok");
@@ -89,6 +98,7 @@ class admin extends CI_Controller
 		$id_barang = $this->input->post('BARANG');
 		$id_varian = $this->input->post('VARIAN');
 		$resi =  $this->input->post('RESI');
+		// var_dump($resi);
 
 		// Generate QR Code
 		$params['data'] = $id_pesan;
@@ -131,15 +141,13 @@ class admin extends CI_Controller
 				'ID_WARNA' => $id_warna,
 				'ID_MARKET' => $id_market,
 				'ID_BARANG' => $id_barang,
-				'ID_VARIAN' => $id_varian
+				'ID_VARIAN' => $id_varian,
 			);
 			$simpan = $this->data_model->add_pesanan($data);
 
 			if ($simpan) {
 				$_SESSION['eksekusi'] = " Data berhasil di simpan";
-			} else {
-				$this->session->set_flashdata('msg_error', 'Data gagal disimpan');
-			}
+			} 
 			redirect('admin/pesanan');
 		}
 	}

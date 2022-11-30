@@ -138,7 +138,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" name="RESI" id="RESI" required="">
+                                    <input type="file" name="RESI" required="">
                                 </div>
                             </div>
                             <div class="form-row">

@@ -50,11 +50,18 @@
 <script src="<?php echo base_url('assets/Frontend/js/sb-admin-2.min.js'); ?>"></script>
 
 <!-- Page level plugins -->
-<script src="<?php echo base_url('assets/Frontend/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/Frontend/vendor/datatables/jquery.dataTables.js'); ?>"></script>
-<script src="<?php echo base_url('assets/Frontend/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
-<!-- page level custom scriptr -->
-<script src="<?php echo base_url('assets/Frontend/js/demo/datatables-demo.js'); ?>"></script>
+<script src="<?php echo base_url('assets/Frontend/Datatables/Datatables-1.13.1/js/jquery.dataTables.min.js'); ?>"></script>
+
+
+<!-- DataTables -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/jquery.dataTables.min.js');?>"></script>
+<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/dataTables.bootstrap4.min.js');?>"></script>
+<script>
+    $(document).ready(function () {
+        $('#DataTables').DataTable();
+    });
+</script>
 
 <!-- Page level plugins -->
 <!-- <script src="<?php echo base_url('assets/Frontend/vendor/chart.js/Chart.min.js'); ?>"></script> -->

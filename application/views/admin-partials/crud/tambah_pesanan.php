@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="inputJuml">Qty</label>
-                                    <input type="text" class="form-control" name="QTY" id="QTY">
+                                    <input type="text" class="form-control" name="QTY" id="QTY" autocomplete="off">
                                 </div>
                             </div>
 

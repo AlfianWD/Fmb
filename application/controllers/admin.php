@@ -24,6 +24,7 @@ class admin extends CI_Controller
 		$this->load->database();
 		$data['data_dash'] = $this->data_model->tabel_dashboard();
 
+
 		//  Jumlah Pesanan
 		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
 
@@ -33,6 +34,7 @@ class admin extends CI_Controller
 		$this->db->where('DESAIN_STATUS', 'Selesai');
 		$query=$this->db->get();
 		$data['desain_status'] = $query->num_rows();
+
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
@@ -64,7 +66,6 @@ class admin extends CI_Controller
 		$data['barang'] = $this->data_model->getBarang();
 		$data['varian'] = $this->data_model->getVarian();
 
-
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
@@ -75,10 +76,9 @@ class admin extends CI_Controller
 	public function simpan_pesanan()
 	{
 		$this->load->model('data_model');
-        $config['upload_path']          = FCPATH . './uploads/resi/';
+		$config['upload_path']          = FCPATH . './uploads/resi/';
         $config['allowed_types']        = 'jpeg|jpg|png|pdf';
         $config['max_size']             = 10240;
-
 
 		$this->load->library('upload', $config);
 
@@ -98,16 +98,14 @@ class admin extends CI_Controller
 		$id_barang = $this->input->post('BARANG');
 		$id_varian = $this->input->post('VARIAN');
 		$resi =  $this->input->post('RESI');
-		// var_dump($resi);
 
-		// Generate QR Code
+		//Generate QR Code
 		$params['data'] = $id_pesan;
-		$params['level'] = 'H';
+		$params['level'] = 'W';
 		$params['size'] = 10;
 		$params['savename'] = 'uploads/qr/' . 'QR-' . $id_pesan . '.png';
 		$qr = $this->ciqrcode->generate($params);
-
-
+		 
 		if (!$this->upload->do_upload('RESI')) {
 			$data['market'] = $this->data_model->getMarket();
 			$data['warna'] = $this->data_model->getWarna();
@@ -124,6 +122,7 @@ class admin extends CI_Controller
 		} else {
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
+			$DESAIN_STATUS = 'Belom';
 			$data = array(
 				'ID_PESAN' => $id_pesan,
 				'TGL_PESAN' => date('Y-m-d'),
@@ -138,6 +137,7 @@ class admin extends CI_Controller
 				'JML_PESAN' => $jml_pesan,
 				'NOTE' => $note,
 				'RESI' => $resi,
+				'DESAIN_STATUS' => $DESAIN_STATUS,
 				'ID_WARNA' => $id_warna,
 				'ID_MARKET' => $id_market,
 				'ID_BARANG' => $id_barang,
@@ -150,6 +150,29 @@ class admin extends CI_Controller
 			} 
 			redirect('admin/pesanan');
 		}
+	}
+
+	public function hapus_pesanan($id_pesan)
+	{
+		$this->load->model('data_model');
+		//delete file
+		$pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
+		$resi_delete = FCPATH."/uploads/resi/".$pesanan[0]->RESI;
+		$qr_delete = FCPATH.$pesanan[0]->QR_CODE;
+	
+		if($resi_delete != 0){ 
+			unlink($resi_delete);
+		}if($qr_delete != 0 ){
+			unlink($qr_delete);
+		}
+		
+		$this->data_model->delete_pesanan($id_pesan);
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
+		unlink(FCPATH."/uploads/resi/".$pesanan[0]->RESI);
+		unlink(FCPATH."/uploads/qr/".$pesanan[0]->QR_CODE);
+
+		redirect('admin/pesanan');
 	}
 
 	public function produk()

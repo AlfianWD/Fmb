@@ -59,9 +59,19 @@
 <script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/dataTables.bootstrap4.min.js');?>"></script>
 <script>
     $(document).ready(function () {
-        $('#DataTables').DataTable();
+        $('#DataTables').DataTable({
+        });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker').datepicker({
+            inline: true
+        });
+    });
+</script>
+
 
 <!-- Page level plugins -->
 <!-- <script src="<?php echo base_url('assets/Frontend/vendor/chart.js/Chart.min.js'); ?>"></script> -->

@@ -82,32 +82,6 @@ class admin extends CI_Controller
 			$this->load->view('admin-partials/footer');
 	}
 
-	public function refresh_pesanan(){
-		$this->load->helper("form", "url");
-		$this->load->database();
-	
-		$this->load->model('Order_model', 'order');
-
-		//Pagination
-		$this->load->library('pagination');
-		
-		//config
-		$config['total_rows'] = $this->order->countAllPesanan();
-		$config['per_page'] = 2;
-
-		//initialize
-		$this->pagination->initialize($config);
-
-		$data['start'] = $this->uri->segment(3);
-		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start']);
-			
-		$this->load->view('admin-partials/header');
-		$this->load->view('admin-partials/side-bar');
-		$this->load->view('admin-partials/top-bar');
-		$this->load->view('admin-partials/pesanan', $data);
-		$this->load->view('admin-partials/footer');
-	}
-
 	public function tambah_pesanan()
 	{
 		$data['market'] = $this->data_model->getMarket();

@@ -30,11 +30,6 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-3" style="float:right;">
-                            <a href="<?= base_url('admin/refresh_pesanan');?>" class="btn btn-success">
-                                <i class="fa fa-refresh">refresh</i> 
-                            </a> 
-                        </div>
                     </div>
 
                      <div class="table-responsive">

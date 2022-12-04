@@ -64,15 +64,6 @@
     });
 </script>
 
-<script>
-    $(document).ready(function () {
-        $('#datepicker').datepicker({
-            inline: true
-        });
-    });
-</script>
-
-
 <!-- Page level plugins -->
 <!-- <script src="<?php echo base_url('assets/Frontend/vendor/chart.js/Chart.min.js'); ?>"></script> -->
 

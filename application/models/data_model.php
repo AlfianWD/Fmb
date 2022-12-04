@@ -2,7 +2,7 @@
 
 use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 
-class data_model extends CI_Model
+class Data_model extends CI_Model
 {
     var $table_warna = 'warna';
     var $table_pesan = 'table_pesanan';

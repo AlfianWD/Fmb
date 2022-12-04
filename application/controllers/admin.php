@@ -47,11 +47,60 @@ class admin extends CI_Controller
 	{
 		$this->load->helper("form", "url");
 		$this->load->database();
-		$query = $this->db->get('table_pesanan');
-		$this->db->select('*');
-		$this->db->from('table_pesanan');
-		$query = $this->db->get();
-		$data['data_pesan'] = $query->result();
+	
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+
+		//ambil data viewer
+		if($this->input->post('submit')){
+			$data['keyword'] = $this->input->post('keyword');
+			$this->session->set_userdata('keyword', $data['keyword']);
+		}else{
+			$data['keyword'] = $this->session->userdata('keyword');
+		}
+
+			//config
+			$this->db->like('ID_PESAN',  $data['keyword']);
+			$this->db->or_like('USERNAME',  $data['keyword']);
+			$this->db->or_like('NM_MARKET',  $data['keyword']);
+			$this->db->from('table_pesanan');
+			$config['total_rows'] = $this->db->count_all_results();
+			$config['per_page'] = 2;
+
+			//initialize
+			$this->pagination->initialize($config);
+
+			$data['start'] = $this->uri->segment(3);
+			$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
+			
+			$this->load->view('admin-partials/header');
+			$this->load->view('admin-partials/side-bar');
+			$this->load->view('admin-partials/top-bar');
+			$this->load->view('admin-partials/pesanan', $data);
+			$this->load->view('admin-partials/footer');
+	}
+
+	public function refresh_pesanan(){
+		$this->load->helper("form", "url");
+		$this->load->database();
+	
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+		
+		//config
+		$config['total_rows'] = $this->order->countAllPesanan();
+		$config['per_page'] = 2;
+
+		//initialize
+		$this->pagination->initialize($config);
+
+		$data['start'] = $this->uri->segment(3);
+		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start']);
+			
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
@@ -123,6 +172,8 @@ class admin extends CI_Controller
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
 			$DESAIN_STATUS = 'Belom';
+			$PRODUKSI_STATUS = 'Belom';
+			$PACKING_STATUS = 'Belom';
 			$data = array(
 				'ID_PESAN' => $id_pesan,
 				'TGL_PESAN' => date('Y-m-d'),
@@ -138,6 +189,8 @@ class admin extends CI_Controller
 				'NOTE' => $note,
 				'RESI' => $resi,
 				'DESAIN_STATUS' => $DESAIN_STATUS,
+				'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
+				'PACKING_STATUS' => $PACKING_STATUS,
 				'ID_WARNA' => $id_warna,
 				'ID_MARKET' => $id_market,
 				'ID_BARANG' => $id_barang,

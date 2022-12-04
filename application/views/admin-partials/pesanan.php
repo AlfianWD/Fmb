@@ -18,34 +18,25 @@
                     session_destroy();
                     endif;
                 ?>
-                <?php 
-                    // if(isset($_POST['filter'])) {
-                    //     $tgl_awal = strip_tags($_POST['tgl_awal']);
-                    //     $tgl_akhir = strip_tags($_POST['tgl_akhir']);
-
-                    //     $query =mysql_query($db,"SELECT TGL_PESAN FROM detail_pesanan BETWEEN 'tgl_awal' AND 'tgl_akhir' ORDER BY ID_PESAN");
-                    //     var_dump($data_akhir);
-                    // }
-                ?>
-
                     <div class="row">
                         <div class="col-md-3">
-                            <form action="<?= base_url('pesanan')?>">
+                            <form action="<?= base_url('admin/pesanan')?>" method="post">
                                 <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Search Keyword" name="keyword">
+                                <input type="text" class="form-control" placeholder="Search Keyword"
+                                name="keyword"  autocomplete="off" autofocus>
                                 <div class="input-group-append">
-                                    <input class="btn btn-primary" type="submit" name="submit" autocomplete="off">
+                                    <input class="btn btn-primary" type="submit" name="submit">
                                 </div>
                                 </div>
                             </form>
                         </div>
+                        <div class="col-md-3" style="float:right;">
+                            <a href="<?= base_url('admin/refresh_pesanan');?>" class="btn btn-success">
+                                <i class="fa fa-refresh">refresh</i> 
+                            </a> 
+                        </div>
                     </div>
-                    <!-- Button Modal -->
-                    <!-- <div class="col-auto py-3">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalFilter">
-                            <i class="fas fa-search"> Filter Data </i>
-                        </button>
-                    </div> -->
+
                      <div class="table-responsive">
                          <table class="table text-center" width="100%" cellspacing="0">
                              <thead>
@@ -64,74 +55,52 @@
                                 </tr>
                              </thead>
                              <tbody>
+                                <?php if (empty($pesanan)) : ?>
+                                    <tr>
+                                        <td colspan="12">
+                                            <div class="alert alert-danger" role="alert">
+                                                data not found!
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                                 <?php
-                                    $no = 1;
-                                    foreach ($data_pesan as $data) {
+                                    foreach ($pesanan as $data) {
                                 ?>
                                
                                 <tr>
-                                 <td><?php echo $no++ ?></td>
-                                 <td><?php echo $data->ID_PESAN; ?></td>
-                                 <td><?php echo $data->TGL_PESAN; ?></td>
-                                 <td><?php echo $data->NM_MARKET; ?></td>
-                                 <td><?php echo $data->USERNAME; ?></td>
-                                 <td><?php echo $data->NM_BARANG; ?></td>
-                                 <td><?php echo $data->VARIAN; ?></td>
-                                 <td><?php echo $data->WARNA; ?></td>
-                                 <td><?php echo $data->CUSTOM_NM; ?></td>
-                                 <td><?php echo $data->QUOTE; ?></td>
+                                 <td><?php echo ++$start ?></td>
+                                 <td><?php echo $data['ID_PESAN']; ?></td>
+                                 <td><?php echo $data['TGL_PESAN']; ?></td>
+                                 <td><?php echo $data['NM_MARKET']; ?></td>
+                                 <td><?php echo $data['USERNAME']; ?></td>
+                                 <td><?php echo $data['NM_BARANG']; ?></td>
+                                 <td><?php echo $data['VARIAN']; ?></td>
+                                 <td><?php echo $data['WARNA']; ?></td>
+                                 <td><?php echo $data['CUSTOM_NM']; ?></td>
+                                 <td><?php echo $data['QUOTE']; ?></td>
                                  <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus<?php echo $data->ID_PESAN ?>">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus<?php echo $data['ID_PESAN'] ?>">
                                         Hapus
                                     </button>
 
-                                    <!-- Modal filter -->
-                                    <!-- <div class="modal" id="modalFilter" tabindex="-1" aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-search"> Filter Data </i> </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="" method="post">
-                                                <div class="form-group">
-                                                    <label for="tgl_awal">Tanggal Awal</label>
-                                                    <input type="date" id="tgl_awal" name="tgl_awal" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="tgl_akhir">Tanggal Akhir</label>
-                                                    <input type="date" id="tgl_akhir" name="tgl_akhir" class="form-control">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-                                                    <button type="submit" class="btn btn-success btn-sm" name="filter">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div> -->
-
                                     <!-- Modal Hapus-->
-                                    <div class="modal fade" id="hapus<?php echo $data->ID_PESAN ?>" tabindex="-1" aria-labelledby="hapus<?php echo $data->ID_PESAN ?>Label" aria-hidden="true">
+                                    <div class="modal fade" id="hapus<?php echo $data['ID_PESAN'] ?>" tabindex="-1" aria-labelledby="hapus<?php echo $data['ID_PESAN'] ?>Label" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="hapus<?php echo $data->ID_PESAN ?>Label">Peringatan</h5>
+                                            <h5 class="modal-title" id="hapus<?php echo $data['ID_PESAN'] ?>Label">Peringatan</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Apakah Anda Yakin Ingin Menghapus Data Dari <?php echo $data->ID_PESAN ?> Ini ?
+                                            Apakah Anda Yakin Ingin Menghapus Data Dari <?php echo $data['ID_PESAN'] ?> Ini ?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">tidak</button>
-                                            <a href="<?php echo base_url("admin/hapus_pesanan/"). $data->ID_PESAN ?>" 
+                                            <a href="<?php echo base_url("admin/hapus_pesanan/"). $data['ID_PESAN'] ?>" 
                                                class="btn btn-danger">Hapus</a>
                                         </div>
                                         </div>
@@ -141,7 +110,24 @@
                                 </tr>
                              </tbody>
                              <?php } ?>
+                             
                          </table>
+                         <!-- <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page">
+                                <span class="page-link">2</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav> -->
+                         <?= $this->pagination->create_links(); ?>
                      </div>
                  </div>
              </div>

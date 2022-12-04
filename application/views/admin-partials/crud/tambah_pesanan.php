@@ -151,15 +151,5 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="col">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h6 class="text-primary text-center">QR Code</h6>
-                    </div>
-                    <div class="card-body">
-                    </div>
-                </div>
-            </div> -->
         </div>
         <!-- /.container-fluid -->

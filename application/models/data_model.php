@@ -2,7 +2,7 @@
 
 use JetBrains\PhpStorm\Internal\ReturnTypeContract;
 
-class data_model extends CI_Model
+class Data_model extends CI_Model
 {
     var $table_warna = 'warna';
     var $table_pesan = 'table_pesanan';
@@ -48,6 +48,12 @@ class data_model extends CI_Model
     function add_pesanan($data)
     {
         return $this->db->insert('detail_pesanan', $data);
+    }
+
+    function delete_pesanan($id_pesan)
+    {
+        $this->db->where('ID_PESAN', $id_pesan);
+        $this->db->delete('detail_pesanan');
     }
 
     function edit_barang($where, $table)

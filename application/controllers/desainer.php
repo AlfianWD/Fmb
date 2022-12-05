@@ -18,7 +18,19 @@ class desainer extends CI_Controller
 		$this->load->database();
 		$data['data_dash'] = $this->data_model->tabel_dashboard();
 
-		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+		// Jumlah Cetak Design
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('DESAIN_STATUS', 'Selesai');
+		$query=$this->db->get();
+		$data['desain_status'] = $query->num_rows();
+
+        // Jumlah BelomCetak Design
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('DESAIN_STATUS', 'Belom Selesai');
+		$query=$this->db->get();
+		$data['desain_not_ready'] = $query->num_rows();
 
 		$this->load->view('desainer-partials/header');
 		$this->load->view('desainer-partials/side-bar');
@@ -84,6 +96,8 @@ class desainer extends CI_Controller
         } else {
             $pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'table_pesanan')->result();
             unlink(FCPATH."/uploads/desain/".$pesanan[0]->DESAIN);
+
+
             $desain = $this->upload->data();
             $desain = $desain['file_name'];
             $DESAIN_STATUS = 'Selesai';

@@ -6,6 +6,48 @@
                  <h1 class="h3 mb-0 text-gray-800">Dashboard Desainer</h1>
              </div>
 
+            <!-- Content Row -->
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Total design belom dicetak</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $desain_not_ready; ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Total Design dicetak</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $desain_status ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <!-- <i class="fas fa-dollar-sign fa-2x text-gray-300"></i> -->
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                        
+
              <!-- Table pesanan -->
              <div class="card shadow mb-4">
                  <div class="card-header py-3">
@@ -21,7 +63,6 @@
                                  <th>Username</th>
                                  <th>Barang</th>
                                  <th>Total</th>
-                                 <th>Status Cetak</th>
                                  <th>Status Desain</th>
                                  <th>Status Produksi</th>
                                  <th>Status Packing</th>
@@ -37,7 +78,6 @@
                                  <td><?php echo $data->USERNAME; ?></td>
                                  <td><?php echo $data->NM_BARANG; ?></td>
                                  <td><?php echo $data->TOTAL_BAYAR; ?></td>
-                                 <td><?php echo $data->ADMIN_STATUS; ?></td>
                                  <td><?php echo $data->DESAIN_STATUS; ?></td>
                                  <td><?php echo $data->PRODUKSI_STATUS; ?></td>
                                  <td><?php echo $data->PACKING_STATUS; ?></td>

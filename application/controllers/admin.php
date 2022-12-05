@@ -24,7 +24,17 @@ class admin extends CI_Controller
 		$this->load->database();
 		$data['data_dash'] = $this->data_model->tabel_dashboard();
 
+
+		//  Jumlah Pesanan
 		$data['total'] = $this->db->get('detail_pesanan')->num_rows();
+
+		// Jumlah Cetak Design
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('DESAIN_STATUS', 'Selesai');
+		$query=$this->db->get();
+		$data['desain_status'] = $query->num_rows();
+
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
@@ -37,11 +47,62 @@ class admin extends CI_Controller
 	{
 		$this->load->helper("form", "url");
 		$this->load->database();
-		$query = $this->db->get('table_pesanan');
-		$this->db->select('*');
-		$this->db->from('table_pesanan');
-		$query = $this->db->get();
-		$data['data_pesan'] = $query->result();
+	
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+
+		//ambil data viewer
+		if($this->input->post('submit')){
+			$data['keyword'] = $this->input->post('keyword');
+			$this->session->set_userdata('keyword', $data['keyword']);
+		}
+			$data['keyword'] = $this->session->userdata('keyword');
+
+			//config
+			$this->db->like('ID_PESAN',  $data['keyword']);
+			$this->db->or_like('USERNAME',  $data['keyword']);
+			$this->db->or_like('NM_MARKET',  $data['keyword']);
+			$this->db->from('table_pesanan');
+			$config['total_rows'] = $this->db->count_all_results();
+			$config['per_page'] = 2;
+
+			//initialize
+			$this->pagination->initialize($config);
+
+			$data['start'] = $this->uri->segment(3);
+			$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
+			
+			$this->load->view('admin-partials/header');
+			$this->load->view('admin-partials/side-bar');
+			$this->load->view('admin-partials/top-bar');
+			$this->load->view('admin-partials/pesanan', $data);
+			$this->load->view('admin-partials/footer');
+	}
+
+	public function refresh_pesanan(){
+		$this->load->helper("form", "url");
+		$this->load->database();
+	
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+		
+		$data['keyword'] = $this->input->post('keyword');
+		$data['keyword'] = $this->session->userdata('keyword');
+
+		//config
+		$config['total_rows'] = $this->order->countAllPesanan();
+		$config['per_page'] = 2;
+
+		//initialize
+		$this->pagination->initialize($config);
+
+		$data['start'] = $this->uri->segment(3);
+		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start']);
+			
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
@@ -56,7 +117,6 @@ class admin extends CI_Controller
 		$data['barang'] = $this->data_model->getBarang();
 		$data['varian'] = $this->data_model->getVarian();
 
-
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
@@ -67,11 +127,9 @@ class admin extends CI_Controller
 	public function simpan_pesanan()
 	{
 		$this->load->model('data_model');
-
-		// upload file
 		$config['upload_path']          = FCPATH . './uploads/resi/';
-		$config['allowed_types']        = 'jpg|png|pdf';
-		$config['max_size']             = 10240;
+        $config['allowed_types']        = 'jpeg|jpg|png|pdf';
+        $config['max_size']             = 10240;
 
 		$this->load->library('upload', $config);
 
@@ -92,19 +150,32 @@ class admin extends CI_Controller
 		$id_varian = $this->input->post('VARIAN');
 		$resi =  $this->input->post('RESI');
 
-		// Generate QR Code
+		//Generate QR Code
 		$params['data'] = $id_pesan;
-		$params['level'] = 'H';
+		$params['level'] = 'W';
 		$params['size'] = 10;
 		$params['savename'] = 'uploads/qr/' . 'QR-' . $id_pesan . '.png';
 		$qr = $this->ciqrcode->generate($params);
-
-
+		 
 		if (!$this->upload->do_upload('RESI')) {
-			echo ('Gagal disimpan');
+			$data['market'] = $this->data_model->getMarket();
+			$data['warna'] = $this->data_model->getWarna();
+			$data['barang'] = $this->data_model->getBarang();
+			$data['varian'] = $this->data_model->getVarian();
+
+			$_SESSION['gagal'] = "Data gagal di simpan";
+
+			$this->load->view('admin-partials/header');
+			$this->load->view('admin-partials/side-bar');
+			$this->load->view('admin-partials/top-bar');
+			$this->load->view('admin-partials/crud/tambah_pesanan', $data);
+			$this->load->view('admin-partials/footer');
 		} else {
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
+			$DESAIN_STATUS = 'Belom';
+			$PRODUKSI_STATUS = 'Belom';
+			$PACKING_STATUS = 'Belom';
 			$data = array(
 				'ID_PESAN' => $id_pesan,
 				'TGL_PESAN' => date('Y-m-d'),
@@ -119,20 +190,44 @@ class admin extends CI_Controller
 				'JML_PESAN' => $jml_pesan,
 				'NOTE' => $note,
 				'RESI' => $resi,
+				'DESAIN_STATUS' => $DESAIN_STATUS,
+				'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
+				'PACKING_STATUS' => $PACKING_STATUS,
 				'ID_WARNA' => $id_warna,
 				'ID_MARKET' => $id_market,
 				'ID_BARANG' => $id_barang,
-				'ID_VARIAN' => $id_varian
+				'ID_VARIAN' => $id_varian,
 			);
 			$simpan = $this->data_model->add_pesanan($data);
 
 			if ($simpan) {
 				$_SESSION['eksekusi'] = " Data berhasil di simpan";
-			} else {
-				$this->session->set_flashdata('msg_error', 'Data gagal disimpan');
-			}
+			} 
 			redirect('admin/pesanan');
 		}
+	}
+
+	public function hapus_pesanan($id_pesan)
+	{
+		$this->load->model('data_model');
+		//delete file
+		$pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
+		$resi_delete = FCPATH."/uploads/resi/".$pesanan[0]->RESI;
+		$qr_delete = FCPATH.$pesanan[0]->QR_CODE;
+	
+		if($resi_delete != 0){ 
+			unlink($resi_delete);
+		}if($qr_delete != 0 ){
+			unlink($qr_delete);
+		}
+		
+		$this->data_model->delete_pesanan($id_pesan);
+		$_SESSION['delete'] = " Data berhasil di hapus";
+
+		unlink(FCPATH."/uploads/resi/".$pesanan[0]->RESI);
+		unlink(FCPATH."/uploads/qr/".$pesanan[0]->QR_CODE);
+
+		redirect('admin/pesanan');
 	}
 
 	public function produk()

@@ -46,10 +46,3 @@
             </div>
         </div>
     </li>
-    <!-- Nav Item -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Sortir</span>
-        </a>
-    </li>

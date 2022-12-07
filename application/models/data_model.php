@@ -14,7 +14,10 @@ class Data_model extends CI_Model
         $this->load->helper('url');
         $this->load->database('db_fmb');
     }
-
+    function export()
+    {
+        return $this->db->get('table_pesanan')->result();
+    }
     function tabel_dashboard()
     {
         $this->db->select('*');

@@ -45,4 +45,9 @@
                 <a class="collapse-item" href="<?= base_url(); ?>admin/marketplace">Marketplace</a>
             </div>
         </div>
+    <li class="nav-item active">
+        <a class="nav-link" href="<?= base_url(); ?>admin/report">
+            <i class="fa fa-file"></i>
+            <span>Report</span></a>
+    </li>
     </li>

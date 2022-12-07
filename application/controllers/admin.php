@@ -32,7 +32,7 @@ class admin extends CI_Controller
 		$this->db->select("ID_PESAN");
 		$this->db->from("detail_pesanan");
 		$this->db->where('DESAIN_STATUS', 'Selesai');
-		$query=$this->db->get();
+		$query = $this->db->get();
 		$data['desain_status'] = $query->num_rows();
 
 
@@ -47,49 +47,50 @@ class admin extends CI_Controller
 	{
 		$this->load->helper("form", "url");
 		$this->load->database();
-	
+
 		$this->load->model('Order_model', 'order');
 
 		//Pagination
 		$this->load->library('pagination');
 
 		//ambil data viewer
-		if($this->input->post('submit')){
+		if ($this->input->post('submit')) {
 			$data['keyword'] = $this->input->post('keyword');
 			$this->session->set_userdata('keyword', $data['keyword']);
 		}
-			$data['keyword'] = $this->session->userdata('keyword');
+		$data['keyword'] = $this->session->userdata('keyword');
 
-			//config
-			$this->db->like('ID_PESAN',  $data['keyword']);
-			$this->db->or_like('USERNAME',  $data['keyword']);
-			$this->db->or_like('NM_MARKET',  $data['keyword']);
-			$this->db->from('table_pesanan');
-			$config['total_rows'] = $this->db->count_all_results();
-			$config['per_page'] = 2;
+		//config
+		$this->db->like('ID_PESAN',  $data['keyword']);
+		$this->db->or_like('USERNAME',  $data['keyword']);
+		$this->db->or_like('NM_MARKET',  $data['keyword']);
+		$this->db->from('table_pesanan');
+		$config['total_rows'] = $this->db->count_all_results();
+		$config['per_page'] = 2;
 
-			//initialize
-			$this->pagination->initialize($config);
+		//initialize
+		$this->pagination->initialize($config);
 
-			$data['start'] = $this->uri->segment(3);
-			$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
-			
-			$this->load->view('admin-partials/header');
-			$this->load->view('admin-partials/side-bar');
-			$this->load->view('admin-partials/top-bar');
-			$this->load->view('admin-partials/pesanan', $data);
-			$this->load->view('admin-partials/footer');
+		$data['start'] = $this->uri->segment(3);
+		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/pesanan', $data);
+		$this->load->view('admin-partials/footer');
 	}
 
-	public function refresh_pesanan(){
+	public function refresh_pesanan()
+	{
 		$this->load->helper("form", "url");
 		$this->load->database();
-	
+
 		$this->load->model('Order_model', 'order');
 
 		//Pagination
 		$this->load->library('pagination');
-		
+
 		$data['keyword'] = $this->input->post('keyword');
 		$data['keyword'] = $this->session->userdata('keyword');
 
@@ -102,7 +103,7 @@ class admin extends CI_Controller
 
 		$data['start'] = $this->uri->segment(3);
 		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start']);
-			
+
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
 		$this->load->view('admin-partials/top-bar');
@@ -128,8 +129,8 @@ class admin extends CI_Controller
 	{
 		$this->load->model('data_model');
 		$config['upload_path']          = FCPATH . './uploads/resi/';
-        $config['allowed_types']        = 'jpeg|jpg|png|pdf';
-        $config['max_size']             = 10240;
+		$config['allowed_types']        = 'jpeg|jpg|png|pdf';
+		$config['max_size']             = 10240;
 
 		$this->load->library('upload', $config);
 
@@ -156,7 +157,7 @@ class admin extends CI_Controller
 		$params['size'] = 10;
 		$params['savename'] = 'uploads/qr/' . 'QR-' . $id_pesan . '.png';
 		$qr = $this->ciqrcode->generate($params);
-		 
+
 		if (!$this->upload->do_upload('RESI')) {
 			$data['market'] = $this->data_model->getMarket();
 			$data['warna'] = $this->data_model->getWarna();
@@ -202,7 +203,7 @@ class admin extends CI_Controller
 
 			if ($simpan) {
 				$_SESSION['eksekusi'] = " Data berhasil di simpan";
-			} 
+			}
 			redirect('admin/pesanan');
 		}
 	}
@@ -212,20 +213,21 @@ class admin extends CI_Controller
 		$this->load->model('data_model');
 		//delete file
 		$pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
-		$resi_delete = FCPATH."/uploads/resi/".$pesanan[0]->RESI;
-		$qr_delete = FCPATH.$pesanan[0]->QR_CODE;
-	
-		if($resi_delete != 0){ 
+		$resi_delete = FCPATH . "/uploads/resi/" . $pesanan[0]->RESI;
+		$qr_delete = FCPATH . $pesanan[0]->QR_CODE;
+
+		if ($resi_delete != 0) {
 			unlink($resi_delete);
-		}if($qr_delete != 0 ){
+		}
+		if ($qr_delete != 0) {
 			unlink($qr_delete);
 		}
-		
+
 		$this->data_model->delete_pesanan($id_pesan);
 		$_SESSION['delete'] = " Data berhasil di hapus";
 
-		unlink(FCPATH."/uploads/resi/".$pesanan[0]->RESI);
-		unlink(FCPATH."/uploads/qr/".$pesanan[0]->QR_CODE);
+		unlink(FCPATH . "/uploads/resi/" . $pesanan[0]->RESI);
+		unlink(FCPATH . "/uploads/qr/" . $pesanan[0]->QR_CODE);
 
 		redirect('admin/pesanan');
 	}
@@ -851,5 +853,149 @@ class admin extends CI_Controller
 		$this->load->view('desainer-partials/top-bar');
 		$this->load->view('desainer-partials/add_desain', $data);
 		$this->load->view('desainer-partials/footer');
+	}
+	public function report()
+	{
+		$this->load->helper("url");
+		$this->load->database();
+		$data['data'] = $this->data_model->export();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/report', $data);
+		$this->load->view('admin-partials/footer');
+	}
+	public function export()
+	{	// Load plugin PHPExcel nya
+		include APPPATH . 'third_party/PHPExcel.php';
+
+		// Panggil class PHPExcel nya
+		$excel = new PHPExcel();
+		// Settingan awal fil excel
+		$excel->getProperties()->setCreator('CV FAZA MEGA BERLIAN')
+			->setLastModifiedBy('Admin')
+			->setTitle("LAPORAN CV FAZA MEGA BERLIAN")
+			->setSubject("REPORT PENJUALAN")
+			->setDescription("Laporan Penjualan CV Faza Mega Berlian")
+			->setKeywords("Penjualan");
+		// Buat sebuah variabel untuk menampung pengaturan style dari header tabel
+		$style_col = array(
+			'font' => array('bold' => true), // Set font nya jadi bold
+			'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER, // Set text jadi ditengah secara horizontal (center)
+				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+			),
+			'borders' => array(
+				'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+				'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+				'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+				'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+			)
+		);
+		// Buat sebuah variabel untuk menampung pengaturan style dari isi tabel
+		$style_row = array(
+			'alignment' => array(
+				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER // Set text jadi di tengah secara vertical (middle)
+			),
+			'borders' => array(
+				'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
+				'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
+				'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
+				'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
+			)
+		);
+		$excel->setActiveSheetIndex(0)->setCellValue('A1', "DATA PENJUALAN CV FAZA MEGA BERLIAN"); // Set kolom A1 dengan tulisan "DATA SISWA"
+		$excel->getActiveSheet()->mergeCells('A1:I1'); // Set Merge Cell pada kolom A1 sampai E1
+		$excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
+		$excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
+		$excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1
+		// Buat header tabel nya pada baris ke 3
+		$excel->setActiveSheetIndex(0)->setCellValue('A3', "NO"); // Set kolom A3 dengan tulisan "NO"
+		$excel->setActiveSheetIndex(0)->setCellValue('B3', "ID PESAN"); // Set kolom B3 dengan tulisan "NIS"
+		$excel->setActiveSheetIndex(0)->setCellValue('C3', "TANGGAL"); // Set kolom C3 dengan tulisan "NAMA"
+		$excel->setActiveSheetIndex(0)->setCellValue('D3', "USERNAME"); // Set kolom D3 dengan tulisan "JENIS KELAMIN"
+		$excel->setActiveSheetIndex(0)->setCellValue('E3', "NAMA BARANG"); // Set kolom E3 dengan tulisan "ALAMAT"
+		$excel->setActiveSheetIndex(0)->setCellValue('F3', "VARIAN");
+		$excel->setActiveSheetIndex(0)->setCellValue('G3', "WARNA");
+		$excel->setActiveSheetIndex(0)->setCellValue('H3', "JUMLAH");
+		$excel->setActiveSheetIndex(0)->setCellValue('I3', "TOTAL BAYAR");
+		$excel->setActiveSheetIndex(0)->setCellValue('J3', "DISKON");
+		$excel->setActiveSheetIndex(0)->setCellValue('K3', "ADMIN");
+		// Apply style header yang telah kita buat tadi ke masing-masing kolom header
+		$excel->getActiveSheet()->getStyle('A3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('B3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('C3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('D3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('E3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('F3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('G3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('H3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('I3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('J3')->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle('K3')->applyFromArray($style_col);
+		// Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
+		$data = $this->data_model->export();
+		$no = 1; // Untuk penomoran tabel, di awal set dengan 1
+		$numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
+		foreach ($data as $data) { // Lakukan looping pada variabel siswa
+			$excel->setActiveSheetIndex(0)->setCellValue('A' . $numrow, $no);
+			$excel->setActiveSheetIndex(0)->setCellValue('B' . $numrow, $data->ID_PESAN);
+			$excel->setActiveSheetIndex(0)->setCellValue('C' . $numrow, $data->TGL_PESAN);
+			$excel->setActiveSheetIndex(0)->setCellValue('D' . $numrow, $data->USERNAME);
+			$excel->setActiveSheetIndex(0)->setCellValue('E' . $numrow, $data->NM_BARANG);
+			$excel->setActiveSheetIndex(0)->setCellValue('F' . $numrow, $data->VARIAN);
+			$excel->setActiveSheetIndex(0)->setCellValue('G' . $numrow, $data->WARNA);
+			$excel->setActiveSheetIndex(0)->setCellValue('H' . $numrow, $data->JML_PESAN);
+			$excel->setActiveSheetIndex(0)->setCellValue('I' . $numrow, $data->TOTAL_BAYAR);
+			$excel->setActiveSheetIndex(0)->setCellValue('J' . $numrow, $data->DISKON);
+			$excel->setActiveSheetIndex(0)->setCellValue('K' . $numrow, $data->ADMIN);
+
+
+			// Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
+			$excel->getActiveSheet()->getStyle('A' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('B' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('C' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('D' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('E' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('F' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('G' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('H' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('I' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('J' . $numrow)->applyFromArray($style_row);
+			$excel->getActiveSheet()->getStyle('K' . $numrow)->applyFromArray($style_row);
+
+			$no++; // Tambah 1 setiap kali looping
+			$numrow++; // Tambah 1 setiap kali looping
+		}
+		// Set width kolom
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(5); // Set width kolom A
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(20); // Set width kolom B
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(20); // Set width kolom C
+		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(20); // Set width kolom D
+		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(20); // Set width kolom E
+		$excel->getActiveSheet()->getColumnDimension('F')->setWidth(20); // Set width kolom A
+		$excel->getActiveSheet()->getColumnDimension('G')->setWidth(20); // Set width kolom B
+		$excel->getActiveSheet()->getColumnDimension('H')->setWidth(10); // Set width kolom C
+		$excel->getActiveSheet()->getColumnDimension('I')->setWidth(20); // Set width kolom D
+		$excel->getActiveSheet()->getColumnDimension('J')->setWidth(10); // Set width kolom E
+		$excel->getActiveSheet()->getColumnDimension('K')->setWidth(10); // Set width kolom E
+
+		// Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
+		$excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
+		// Set orientasi kertas jadi LANDSCAPE
+		$excel->getActiveSheet()->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
+		// Set judul file excel nya
+		$excel->getActiveSheet(0)->setTitle("PENJUALAN CV FAZA MEGA BERLIAN");
+		$excel->setActiveSheetIndex(0);
+		// Proses file excel
+		$fileName = 'data-' . time() . '.xlsx';
+		$filename = "REPORT-" . date("Y-m-d") . ".xlsx";
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		// header('Content-Disposition: attachment; filename="LAPORAN-"''".xlsx"'); // Set nama file excel nya
+		header('Content-Disposition: attachment;filename="' . $filename . '"');
+		header('Cache-Control: max-age=0');
+		$write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+		$write->save('php://output');
 	}
 }

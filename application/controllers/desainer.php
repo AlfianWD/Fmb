@@ -25,10 +25,10 @@ class desainer extends CI_Controller
 		$query=$this->db->get();
 		$data['desain_status'] = $query->num_rows();
 
-        // Jumlah BelomCetak Design
+        // Jumlah Belom Cetak Design
 		$this->db->select("ID_PESAN");
 		$this->db->from("detail_pesanan");
-		$this->db->where('DESAIN_STATUS', 'Belom Selesai');
+		$this->db->where('DESAIN_STATUS', 'Belom');
 		$query=$this->db->get();
 		$data['desain_not_ready'] = $query->num_rows();
 

@@ -14,62 +14,53 @@
                             <h5 class="text-primary text-center">Detail Pesanan</h5>
                         </div>
                         <div class="card-body">
-                            <?php foreach($pesanan as $data) { ?>
-                            <form action="<?php echo base_url('produksi/detail_pesanann'); ?>"
-                                enctype="multipart/form-data" method="POST">
+                            <form>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Kode Pesanan :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN" readonly
-                                            value="<?php echo $data['ID_PESAN']; ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Nama Barang :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" readonly
-                                            value="<?php echo $data['NM_BARANG']; ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Pilihan Varian :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" readonly
-                                            value="<?php echo $data['VARIAN']; ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Pilihan Warna :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" readonly
-                                            value="<?php echo $data['WARNA']; ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Custom Nama :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" readonly
-                                            value="<?php echo $data['CUSTOM_NM'] ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Custom Quote :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" readonly
-                                            value="<?php echo $data['QUOTE'] ?>">
+                                        <input type="text" class="form-control" id="kodePesanan" readonly>
                                     </div>
                                 </div>
                                 </br>
                                 <div class="col-auto my-2">
-                                    <input type="submit" class="btn btn-primary" value="Next" href="<?php echo base_url('produksi/detail_pesanann'); ?>">
+                                    <a href="<?php echo base_url('produksi/dashboard'); ?>" type="submit" class="btn btn-md btn-primary">Kembali</a>
                                 </div>
                             </form>
-                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -106,7 +97,7 @@
                                     <form action="<?= base_url('produksi/detail_pesanan')?>" method="post">
                                         <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder="Search Keyword"
-                                        id="id" autocomplete="off" readonly autofocus>
+                                        name="keyword" id="id" autocomplete="off" readonly autofocus>
                                         <div class="input-group-append">
                                             <input class="btn btn-primary" type="submit" name="submit">
                                         </div>

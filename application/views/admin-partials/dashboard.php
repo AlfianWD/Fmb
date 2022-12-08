@@ -91,6 +91,9 @@
              <div class="card shadow">
                  <div class="card-header">
                      <h6 class="font-weight-bolt text-primary float-left">Data Pesanan</h6>
+                     <a href="<?= base_url('produksi/detail_pesanan');?>" class="btn btn-primary btn-sm float-right">
+                        Scan
+                     </a>
                  </div>
                  <div class="card-body">
                      <div class="table-responsive">
@@ -103,6 +106,7 @@
                                 <th>Username</th>
                                 <th>Barang</th>
                                 <th>Total</th>
+                                <th>Status Admin</th>
                                 <th>Status Desain</th>
                                 <th>Status Produksi</th>
                                 <th>Status Packing</th>
@@ -118,6 +122,7 @@
                                         <td>".$row[] = $data->USERNAME."</td>
                                         <td>".$row[] = $data->NM_BARANG."</td>
                                         <td>".$row[] = 'Rp.'. number_format($data->TOTAL_BAYAR, 0, ",", ".")."</td>
+                                        <td>".$row[] = $data->ADMIN_STATUS."</td>
                                         <td>".$row[] = $data->DESAIN_STATUS."</td>
                                         <td>".$row[] = $data->PRODUKSI_STATUS."</td>
                                         <td>".$row[] = $data->PACKING_STATUS."</td>

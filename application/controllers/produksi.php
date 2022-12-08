@@ -55,22 +55,41 @@ class produksi extends CI_Controller
         $this->load->view('produksi-partials/footer');
     }
 
+    public function detail_pesanann()
+    {
+
+        if ($this->input->post('submit')) {
+            $data['keyword'] = $this->input->post('keyword');
+            $this->session->set_flashdata('keyword', $data['keyword']);
+          }
+  
+          $data['keyword'] = $this->session->flashdata('keyword');
+
+        $this->load->view('produksi-partials/header');
+        $this->load->view('produksi-partials/side-bar');
+        $this->load->view('produksi-partials/top-bar');
+        $this->load->view('produksi-partials/detail_pesanann');
+        $this->load->view('produksi-partials/footer');
+    }
+
     public function detail_pesanan()
     {
+
         $this->load->helper("form", "url");
 		$this->load->database();
 
 		$this->load->model('Order_model', 'order');
 
-        if ($this->input->post('submit')) {
-			$data['keyword'] = $this->input->post('keyword');
-		}
+        $data['keyword'] = $this->session->flashdata('keyword');
 
-		//config
-        $config['total_rows'] = $this->db->count_all_results();
+        $this->db->like('ID_PESAN',  $data['keyword']);
+		$this->db->from('table_pesanan');
 
-        $data['start'] = $this->uri->segment(3);
-		$data['pesanan'] = $this->order->getPesanan($data['start'], $data['keyword']);
+         //config
+         $config['total_rows'] = $this->db->count_all_results();
+    
+         $data['start'] = $this->uri->segment(3);
+         $data['pesanan'] = $this->order->getPesanan($data['start'], $data['keyword']);
 
         $this->load->view('produksi-partials/header');
         $this->load->view('produksi-partials/side-bar');

@@ -51,7 +51,7 @@
              <div class="card shadow mb-4">
                  <div class="card-header py-3">
                      <h6 class="font-weight-bolt text-primary float-left">Data Pesanan</h6>
-                     <a href="<?= base_url('produksi/detail_pesanan');?>" class="btn btn-primary btn-sm float-right">
+                     <a href="<?= base_url('produksi/detail_pesanann');?>" class="btn btn-primary btn-sm float-right">
                         Scan
                      </a>
                  </div>
@@ -65,6 +65,7 @@
                                  <th>Username</th>
                                  <th>Barang</th>
                                  <th>Total</th>
+                                 <th>Status Admin</th>
                                  <th>Status Cetak</th>
                                  <th>Status Produksi</th>
                                  <th>Status Packing</th>
@@ -80,6 +81,7 @@
                                     <td>".$row[] = $data->USERNAME."</td>
                                     <td>".$row[] = $data->NM_BARANG."</td>
                                     <td>".$row[] = 'Rp.'. number_format($data->TOTAL_BAYAR, 0, ",", ".")."</td>
+                                    <td>".$row[] = $data->ADMIN_STATUS."</td>
                                     <td>".$row[] = $data->DESAIN_STATUS."</td>
                                     <td>".$row[] = $data->PRODUKSI_STATUS."</td>
                                     <td>".$row[] = $data->PACKING_STATUS."</td>

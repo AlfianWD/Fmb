@@ -906,7 +906,7 @@ class admin extends CI_Controller
 			)
 		);
 		$excel->setActiveSheetIndex(0)->setCellValue('A1', "DATA PENJUALAN CV FAZA MEGA BERLIAN"); // Set kolom A1 dengan tulisan "DATA SISWA"
-		$excel->getActiveSheet()->mergeCells('A1:I1'); // Set Merge Cell pada kolom A1 sampai E1
+		$excel->getActiveSheet()->mergeCells('A1:K1'); // Set Merge Cell pada kolom A1 sampai E1
 		$excel->getActiveSheet()->getStyle('A1')->getFont()->setBold(TRUE); // Set bold kolom A1
 		$excel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15); // Set font size 15 untuk kolom A1
 		$excel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); // Set text center untuk kolom A1

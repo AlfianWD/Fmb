@@ -52,7 +52,6 @@
 <!-- Page level plugins -->
 <script src="<?php echo base_url('assets/Frontend/Datatables/Datatables-1.13.1/js/jquery.dataTables.min.js'); ?>"></script>
 
-
 <!-- DataTables -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/jquery.dataTables.min.js');?>"></script>

@@ -19,7 +19,7 @@
                                     <?php
                                         foreach ($pesanan as $data) {
                                     ?>
-                                <form action="<?php echo base_url('admin/qc'); ?>" method="post">
+                                <form action="<?php echo base_url('produksi/qc'); ?>" method="post">
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Kode Pesanan :</label>
                                     <div class="col-md-8">
@@ -87,7 +87,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="PRODUKSI_STATUS" id="kodePesanan">
                                     <label class="form-check-label" for="defaultCheck1">
-                                        Apakah Produk Sesuai Telah Dengan Orderan?
+                                        Apakah Produk Telah Sesuai Dengan Orderan?
                                     </label>
                                 </div>
                                 </br>

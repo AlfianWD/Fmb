@@ -175,4 +175,9 @@ class Data_model extends CI_Model
     {
         return $this->db->update("detail_pesanan", $data, $id_pesan);
     }
+
+    function QC_produksi($id_pesan, $data)
+    {
+        return $this->db->update("detail_pesanan", $data, $id_pesan);
+    }
 }

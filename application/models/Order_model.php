@@ -21,6 +21,17 @@ class Order_model extends CI_Model {
         
     }
 
+    public function getPesan( $limit, $start, $key = null)
+    {
+      
+        if($key){
+            $this->db->like('ID_PESAN', $key);
+        }
+
+        return $this->db->get('table_pesanan', $limit, $start)->result_array();
+        
+    }
+
     public function countAllPesanan()
     {
         return $this->db->get('table_pesanan')->num_rows();

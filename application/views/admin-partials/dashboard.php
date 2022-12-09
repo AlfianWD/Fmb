@@ -91,7 +91,7 @@
              <div class="card shadow">
                  <div class="card-header">
                      <h6 class="font-weight-bolt text-primary float-left">Data Pesanan</h6>
-                     <a href="<?= base_url('produksi/detail_pesanan');?>" class="btn btn-primary btn-sm float-right">
+                     <a href="<?= base_url('admin/detail_pesanann');?>" class="btn btn-primary btn-sm float-right">
                         Scan
                      </a>
                  </div>

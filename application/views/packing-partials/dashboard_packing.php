@@ -51,7 +51,9 @@
              <div class="card shadow mb-4">
                  <div class="card-header py-3">
                      <h6 class="font-weight-bolt text-primary float-left">Data Pesanan</h6>
-                     <a href="" class="btn btn-primary btn-sm float-right">Scan</a>
+                     <a href="<?= base_url('packing/detail_pesanann');?>" class="btn btn-primary btn-sm float-right">
+                        Scan
+                     </a>
                  </div>
                  <div class="card-body">
                      <div class="table-responsive">

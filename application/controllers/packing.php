@@ -111,4 +111,27 @@ class packing extends CI_Controller
         $this->load->view('packing-partials/detail_pesanan', $data);
         $this->load->view('packing-partials/footer');
     }
+
+    public function qc()
+    {
+        $this->load->model('data_model');
+
+        $id_pesan = $this->input->post('ID_PESAN');
+        $PACKING_STATUS = $this->input->post('PACKING_STATUS');
+
+        $PACKING_STATUS = 'Selesai';
+
+        $data = array(
+            'PACKING_STATUS' => $PACKING_STATUS
+        );
+
+        $where = array(
+            'ID_PESAN' => $id_pesan
+        );
+
+        $this->data_model->QC_packing($where, $data, 'detail_pesanan');
+
+        redirect('packing/dashboard');
+
+    }
 }

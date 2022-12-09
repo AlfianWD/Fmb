@@ -35,6 +35,20 @@ class admin extends CI_Controller
 		$query = $this->db->get();
 		$data['desain_status'] = $query->num_rows();
 
+		// Jumlah yang telah diproduksi
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('PRODUKSI_STATUS', 'Selesai');
+		$query = $this->db->get();
+		$data['produksi_status'] = $query->num_rows();
+
+		// Jumlah yang telah dipacking
+		$this->db->select("ID_PESAN");
+		$this->db->from("detail_pesanan");
+		$this->db->where('PACKING_STATUS', 'Selesai');
+		$query = $this->db->get();
+		$data['packing_status'] = $query->num_rows();
+
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
@@ -212,26 +226,33 @@ class admin extends CI_Controller
 	}
 
 	public function hapus_pesanan($id_pesan)
-	{
+	{ 
 		$this->load->model('data_model');
 		//delete file
 		$pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
 		$resi_delete = FCPATH . "/uploads/resi/" . $pesanan[0]->RESI;
-		$qr_delete = FCPATH . "/uploads/qr/".  $pesanan[0]->QR_CODE;
-		$qr_delete = FCPATH . "/uploads/desain/".  $pesanan[0]->QR_CODE;
+		$desain_delete = FCPATH .  $pesanan[0]->DESAIN;
+		$qr_delete = FCPATH . $pesanan[0]->QR_CODE;
+		var_dump($desain_delete);
+		
+
 		if ($resi_delete != 0) {
 			unlink($resi_delete);
-		}
-		if ($qr_delete != 0) {
-			unlink($qr_delete);
+			if ($qr_delete != 0) {
+				unlink($qr_delete);
+				if ($desain_delete != 0) {
+					unlink($desain_delete);
+				}
+			}
 		}
 
 		$this->data_model->delete_pesanan($id_pesan);
 		$_SESSION['delete'] = " Data berhasil di hapus";
 
 		unlink(FCPATH . "/uploads/resi/" . $pesanan[0]->RESI);
-		unlink(FCPATH . "/uploads/qr/" . $pesanan[0]->QR_CODE);
-		unlink(FCPATH . "/uploads/desain/" . $pesanan[0]->QR_CODE);
+		unlink(FCPATH . "/uploads/desain/". $pesanan[0]->DESAIN);
+		unlink(FCPATH . $pesanan[0]->QR_CODE);
+		
 
 		redirect('admin/pesanan');
 	}
@@ -290,6 +311,30 @@ class admin extends CI_Controller
         $this->load->view('admin-partials/top-bar');
         $this->load->view('admin-partials/detail_pesanan', $data);
         $this->load->view('admin-partials/footer');
+    }
+
+	public function qc()
+    {
+        $this->load->model('data_model');
+
+        $id_pesan = $this->input->post('ID_PESAN');
+        $ADMIN_STATUS = $this->input->post('ADMIN_STATUS');
+
+        $ADMIN_STATUS = 'Selesai';
+
+        $data = array(
+			'ID_PESAN' => $id_pesan,
+            'ADMIN_STATUS' => $ADMIN_STATUS
+        );
+
+        $where = array(
+            'ID_PESAN' => $id_pesan
+        );
+
+        $this->data_model->QC_admin($where, $data, 'detail_pesanan');
+
+        redirect('admin/dashboard');
+
     }
 
 	public function produk()

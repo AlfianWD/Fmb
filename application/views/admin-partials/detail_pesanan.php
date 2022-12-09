@@ -19,7 +19,7 @@
                                     <?php
                                         foreach ($pesanan as $data) {
                                     ?>
-                                <form action="<?php echo base_url('produksi/qc'); ?>" method="post">
+                                <form action="<?php echo base_url('admin/qc'); ?>" method="post">
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Kode Pesanan :</label>
                                     <div class="col-md-8">
@@ -31,7 +31,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Username :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN" readonly
+                                        <input type="text" class="form-control" id="kodePesanan" name="Username" readonly
                                             value="<?php echo $data->USERNAME; ?>">
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                 <div class="form-row">
                                     <label for="kodePesanan" class="col-md-3 col-form-label">Marketplace :</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" id="kodePesanan" name="ID_PESAN" readonly
+                                        <input type="text" class="form-control" id="kodePesanan" name="NM_Market" readonly
                                             value="<?php echo $data->NM_MARKET; ?>">
                                     </div>
                                 </div>

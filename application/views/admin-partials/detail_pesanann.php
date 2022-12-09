@@ -44,6 +44,9 @@
                                         endif;
                                     ?>
                                 </table>
+                                <div class="col-auto my-2">
+                                    <a href="<?php echo base_url('admin/dashboard'); ?>" type="submit" class="btn btn-md btn-primary">Kembali</a>
+                                </div>
                             </div>
                         </div>
                     </div>

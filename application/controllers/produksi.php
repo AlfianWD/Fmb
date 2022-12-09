@@ -124,13 +124,11 @@ class produksi extends CI_Controller
             'PRODUKSI_STATUS' => $PRODUKSI_STATUS
         );
 
-        var_dump($data);
-
         $where = array(
             'ID_PESAN' => $id_pesan
         );
 
-        $this->data_model->QC_produksi($where, $data, 'detail_pesanan');
+        $this->data_model->QC_produksi( $where, $data, 'detail_pesanan');
 
         redirect('produksi/dashboard');
 

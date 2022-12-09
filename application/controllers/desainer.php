@@ -97,7 +97,6 @@ class desainer extends CI_Controller
             $pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'table_pesanan')->result();
             unlink(FCPATH."/uploads/desain/".$pesanan[0]->DESAIN);
 
-
             $desain = $this->upload->data();
             $desain = $desain['file_name'];
             $DESAIN_STATUS = 'Selesai';
@@ -117,5 +116,22 @@ class desainer extends CI_Controller
 
             redirect('desainer/desain');
         }
+    }
+
+    public function refresh_pesanan()
+    {
+        $this->load->helper("url");
+        $this->load->database();
+        $query = $this->db->get('table_pesanan');
+        $this->db->select('*');
+        $this->db->from('table_pesanan');
+        $query = $this->db->get();
+        $data['data_dash'] = $query->result();
+
+        $this->load->view('desainer-partials/header');
+        $this->load->view('desainer-partials/side-bar');
+        $this->load->view('desainer-partials/top-bar');
+        $this->load->view('desainer-partials/desain', $data);
+        $this->load->view('desainer-partials/footer');   
     }
 }

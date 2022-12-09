@@ -18,6 +18,12 @@
                         endif;
                     ?>
                     <div class="table-responsive">
+                    <div class="col-md-3">
+                            <a href="<?= base_url('desainer/refresh_pesanan');?>" class="btn btn-success">
+                                <i class="fa fa-refresh">refresh</i> 
+                            </a> 
+                    </div>
+                    </br>
                         <table class="table table-bordered text-center" id="dataTable">
                             <thead class="table-light">
                                 <th>No</th>

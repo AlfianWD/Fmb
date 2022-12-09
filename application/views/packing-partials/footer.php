@@ -50,18 +50,30 @@
 <script src="<?php echo base_url('assets/Frontend/js/sb-admin-2.min.js'); ?>"></script>
 
 <!-- Page level plugins -->
-<script src="<?php echo base_url('assets/Frontend/Datatables/Datatables-1.13.1/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/Frontend/Datatables/Datatables-1.13.1/js/jquery.dataTables.min.js'); ?>">
+</script>
 
 
 <!-- DataTables -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/jquery.dataTables.min.js');?>"></script>
-<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/dataTables.bootstrap4.min.js');?>"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js">
+</script>
+<!-- <script type="text/javascript">
+function printResi() {
+    var printPage = document.getElementById(resi).innerHTML;
+    // // var oriPage = document.body.innerHTML;
+    // // document.body.innerHTML = oriPage;
+    // window.print();
+    // document.body.innerHTML = oriPage;
+} -->
+</script>
+<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/jquery.dataTables.min.js'); ?>">
+</script>
+<script src="<?php echo base_url('assets/Frontend/DataTables/DataTables-1.13.1/js/dataTables.bootstrap4.min.js'); ?>">
+</script>
 <script>
-    $(document).ready(function () {
-        $('#DataTables').DataTable({
-        });
-    });
+$(document).ready(function() {
+    $('#DataTables').DataTable({});
+});
 </script>
 
 <!-- Page level plugins -->

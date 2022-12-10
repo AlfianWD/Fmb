@@ -2,5 +2,13 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/u15747378/public_html/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp style.css $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp composer.json $DEPLOYPATH
+    - /bin/cp .editorconfig $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp -R applications $DEPLOYPATH
+    - /bin/cp -R assets $DEPLOYPATH
+    - /bin/cp -R node_modules $DEPLOYPATH
+    - /bin/cp -R system $DEPLOYPATH
+    - /bin/cp -R uploads $DEPLOYPATH

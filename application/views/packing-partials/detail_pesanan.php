@@ -21,6 +21,17 @@
                                     ?>
                                     <form action="<?php echo base_url('packing/qc'); ?>" method="post">
                                         <div class="form-row">
+                                            <label for="kodePesanan" class="col-lg-3 col-form-label">Catatan :
+                                            </label>
+                                            <div class="col-lg-8">
+                                            </div>
+                                        </div>
+                                        <b-form-textarea style="width:525px; height:100px" size="20"
+                                            class="form-control form-control-lg text-danger text-bolt" id="Note"
+                                            readonly>
+                                            <?php echo $data->NOTE; ?></b-form-textarea>
+                                        </br>
+                                        <div class="form-row">
                                             <label for="kodePesanan" class="col-md-3 col-form-label">Kode Pesanan
                                                 :</label>
                                             <div class="col-md-8">

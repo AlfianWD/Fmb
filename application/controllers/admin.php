@@ -226,7 +226,7 @@ class admin extends CI_Controller
 	}
 
 	public function hapus_pesanan($id_pesan)
-	{ 
+	{
 		$this->load->model('data_model');
 		//delete file
 		$pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
@@ -234,7 +234,7 @@ class admin extends CI_Controller
 		$desain_delete = FCPATH .  $pesanan[0]->DESAIN;
 		$qr_delete = FCPATH . $pesanan[0]->QR_CODE;
 		var_dump($desain_delete);
-		
+
 
 		if ($resi_delete != 0) {
 			unlink($resi_delete);
@@ -250,9 +250,9 @@ class admin extends CI_Controller
 		$_SESSION['delete'] = " Data berhasil di hapus";
 
 		unlink(FCPATH . "/uploads/resi/" . $pesanan[0]->RESI);
-		unlink(FCPATH . "/uploads/desain/". $pesanan[0]->DESAIN);
+		unlink(FCPATH . "/uploads/desain/" . $pesanan[0]->DESAIN);
 		unlink(FCPATH . $pesanan[0]->QR_CODE);
-		
+
 
 		redirect('admin/pesanan');
 	}
@@ -264,26 +264,26 @@ class admin extends CI_Controller
 
 		$this->load->model('Admin_model', 'admin');
 
-        //Pagination
-        $this->load->library('pagination');
+		//Pagination
+		$this->load->library('pagination');
 
 		// ambil data viewer
 		if ($this->input->post('submit')) {
 			$data['id'] = $this->input->post('id');
 			$this->session->set_userdata('id', $data['id']);
 		} else {
-            $_SESSION['not_found'] = "";
-        }
+			$_SESSION['not_found'] = "";
+		}
 
 		$data['id'] = $this->session->userdata('id');
 
-        $this->db->like('ID_PESAN',  $data['id']);
-        $this->db->from('table_pesanan');
-        //config
-        $config['total_rows'] = $this->db->count_all_results();
-        $config['per_page'] = 10;
+		$this->db->like('ID_PESAN',  $data['id']);
+		$this->db->from('table_pesanan');
+		//config
+		$config['total_rows'] = $this->db->count_all_results();
+		$config['per_page'] = 10;
 
-        //initialize
+		//initialize
 		$this->pagination->initialize($config);
 
 
@@ -297,45 +297,44 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/footer');
 	}
 
-    public function detail_pesanan($id_pesan)
-    {
+	public function detail_pesanan($id_pesan)
+	{
 
-        $this->load->helper("form", "url");
+		$this->load->helper("form", "url");
 		$this->load->database();
 
-        $where = array('ID_PESAN' => $id_pesan);
-        $data['pesanan'] = $this->data_model->getPesanan($where, 'table_pesanan')->result();
+		$where = array('ID_PESAN' => $id_pesan);
+		$data['pesanan'] = $this->data_model->getPesanan($where, 'table_pesanan')->result();
 
-        $this->load->view('admin-partials/header');
-        $this->load->view('admin-partials/side-bar');
-        $this->load->view('admin-partials/top-bar');
-        $this->load->view('admin-partials/detail_pesanan', $data);
-        $this->load->view('admin-partials/footer');
-    }
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/detail_pesanan', $data);
+		$this->load->view('admin-partials/footer');
+	}
 
 	public function qc()
-    {
-        $this->load->model('data_model');
+	{
+		$this->load->model('data_model');
 
-        $id_pesan = $this->input->post('ID_PESAN');
-        $ADMIN_STATUS = $this->input->post('ADMIN_STATUS');
+		$id_pesan = $this->input->post('ID_PESAN');
+		$ADMIN_STATUS = $this->input->post('ADMIN_STATUS');
 
-        $ADMIN_STATUS = 'Selesai';
+		$ADMIN_STATUS = 'Selesai';
 
-        $data = array(
+		$data = array(
 			'ID_PESAN' => $id_pesan,
-            'ADMIN_STATUS' => $ADMIN_STATUS
-        );
+			'ADMIN_STATUS' => $ADMIN_STATUS
+		);
 
-        $where = array(
-            'ID_PESAN' => $id_pesan
-        );
+		$where = array(
+			'ID_PESAN' => $id_pesan
+		);
 
-        $this->data_model->QC_admin($where, $data, 'detail_pesanan');
+		$this->data_model->QC_admin($where, $data, 'detail_pesanan');
 
-        redirect('admin/dashboard');
-
-    }
+		redirect('admin/dashboard');
+	}
 
 	public function produk()
 	{
@@ -829,8 +828,8 @@ class admin extends CI_Controller
 			switch ($akses) {
 				case 'admin':
 					redirect('admin/dashboard');
-				case 'admin':
-					redirect('admin/dashboard');
+				case 'produksi':
+					redirect('produksi/dashboard');
 				case 'packing':
 					redirect('packing/dashboard');
 				case 'desainer':

@@ -45,9 +45,14 @@
                 <a class="collapse-item" href="<?= base_url(); ?>admin/marketplace">Marketplace</a>
             </div>
         </div>
-    <li class="nav-item active">
-        <a class="nav-link" href="<?= base_url(); ?>admin/report">
+    <li class="nav-item">
+        <a class="nav-link collapsed" aria-expanded="true" href="<?= base_url(); ?>admin/report">
             <i class="fa fa-file"></i>
             <span>Report</span></a>
+    </li>
+    <li class="nav-item ">
+        <a class="nav-link collapsed" href="<?= base_url(); ?>admin/import_excel">
+            <i class="fa fa-file"></i>
+            <span>Import</span></a>
     </li>
     </li>

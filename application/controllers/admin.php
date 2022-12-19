@@ -1000,4 +1000,132 @@ class admin extends CI_Controller
 		$write = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
 		$write->save('php://output');
 	}
+
+	function import_excel()
+	{
+		$this->load->helper("url");
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/import_excel');
+		$this->load->view('admin-partials/footer');
+	}
+
+	function import()
+	{
+		if (isset($_FILES["file"]["name"])) {
+			// upload
+			$file_tmp = $_FILES['file']['tmp_name'];
+			$file_name = $_FILES['file']['name'];
+			$file_size = $_FILES['file']['size'];
+			$file_type = $_FILES['file']['type'];
+			// move_uploaded_file($file_tmp,"uploads/".$file_name); // simpan filenya di folder uploads
+			require_once(APPPATH . 'third_party/PHPExcel.php');
+
+			$object = PHPExcel_IOFactory::load($file_tmp);
+
+			foreach ($object->getWorksheetIterator() as $worksheet) {
+
+				$highestRow = $worksheet->getHighestRow();
+				// $highestColumn = $worksheet->getHighestColumn();
+
+				for ($row = 4; $row <= $highestRow; $row++) {
+					$id_pesan = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+					//$date = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+					$username = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+					$total = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$diskon = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+					$admin = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+					$pengiriman = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+					$qty = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
+					$custom_nama = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
+					$quote = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
+					$jml_pesan = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
+					$note = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
+					$warna = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
+					$market = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
+					$barang = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
+					$varian = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
+
+					//Generate QR Code
+					$params['data'] = $id_pesan;
+					$params['level'] = 'W';
+					$params['size'] = 10;
+					$params['savename'] = 'uploads/qr/' . 'QR-' . $id_pesan . '.png';
+					$qr = $this->ciqrcode->generate($params);
+
+					// ambil id warna
+					$this->db->select('ID_WARNA');
+					$this->db->from('warna');
+					$this->db->where('WARNA', $warna);
+					$query = $this->db->get();
+					$id_warna = $query->row('ID_WARNA');
+
+					// ambil id market
+					$this->db->select('ID_MARKET');
+					$this->db->from('marketplace');
+					$this->db->where('NM_MARKET', $market);
+					$query2 = $this->db->get();
+					$id_market = $query2->row('ID_MARKET');
+
+					// ambil id barang
+					$this->db->select('ID_BARANG');
+					$this->db->from('barang');
+					$this->db->where('NM_BARANG', $barang);
+					$query3 = $this->db->get();
+					$id_barang = $query3->row('ID_BARANG');
+
+					// ambil id varian
+					$this->db->select('ID_VARIAN');
+					$this->db->from('varian');
+					$this->db->where('VARIAN', $varian);
+					$query4 = $this->db->get();
+					$id_varian = $query4->row('ID_VARIAN');
+
+					$ADMIN_STATUS = 'Belom';
+					$DESAIN_STATUS = 'Belom';
+					$PRODUKSI_STATUS = 'Belom';
+					$PACKING_STATUS = 'Belom';
+
+					$data[] = array(
+						'ID_PESAN' => $id_pesan,
+						'TGL_PESAN' => date('Y-m-d'),
+						'USERNAME' => $username,
+						'TOTAL_BAYAR' => $total,
+						'DISKON' => $diskon,
+						'QR_CODE' => $qr,
+						'BIAYA_ADMIN' => $admin,
+						'PENGIRIMAN' => $pengiriman,
+						'QTY' => $qty,
+						'CUSTOM_NM' => $custom_nama,
+						'QUOTE' => $quote,
+						'JML_PESAN' => $jml_pesan,
+						'NOTE' => $note,
+						'ADMIN_STATUS' => $ADMIN_STATUS,
+						'DESAIN_STATUS' => $DESAIN_STATUS,
+						'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
+						'PACKING_STATUS' => $PACKING_STATUS,
+						'ID_WARNA' => $id_warna,
+						'ID_MARKET' => $id_market,
+						'ID_BARANG' => $id_barang,
+						'ID_VARIAN' => $id_varian,
+					);
+				}
+			}
+			$this->db->insert_batch('detail_pesanan', $data);
+			$message = array(
+				'message' => '<div class="alert alert-success">Import data berhasil</div>',
+			);
+
+			$this->session->set_flashdata($message);
+			redirect('admin/import_excel');
+		} else {
+			$message = array(
+				'message' => '<div class="alert alert-danger">Import file gagal, coba lagi</div>',
+			);
+
+			$this->session->set_flashdata($message);
+			redirect('admin/import_excel');
+		}
+	}
 }

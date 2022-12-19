@@ -190,4 +190,11 @@ class Data_model extends CI_Model
     {
         return $this->db->update("detail_pesanan", $data, $id_pesan);
     }
+    public function insert($data)
+    {
+        $insert = $this->db->insert_batch('detail_pesanan', $data);
+        if ($insert) {
+            return true;
+        }
+    }
 }

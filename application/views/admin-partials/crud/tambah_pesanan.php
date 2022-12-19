@@ -14,22 +14,23 @@
                         <a href="<?php echo site_url('admin/pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="card-body">
-                            <?php
-                                if(isset($_SESSION['gagal'])):
-                            ?>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Data gagal Tersimpan, silakan masukan file resi terlebih!
-                                </div>
-                            <?php
-                                session_destroy();
-                                endif;
-                            ?>  
-                        <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" enctype="multipart/form-data" method="POST">
+                        <?php
+                        if (isset($_SESSION['gagal'])) :
+                        ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Data gagal Tersimpan, silakan masukan file resi terlebih!
+                        </div>
+                        <?php
+                            session_destroy();
+                        endif;
+                        ?>
+                        <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" enctype="multipart/form-data"
+                            method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputEmail4">Kode Pesanan</label>
-                                    <input type="text" class="form-control" name="ID_PESAN" id="ID_PESAN" autocomplete="off" placeholder=""
-                                        required="">
+                                    <input type="text" class="form-control" name="ID_PESAN" id="ID_PESAN"
+                                        autocomplete="off" placeholder="" required="">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4">Marketplace</label>
@@ -46,38 +47,41 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Ekspedisi</label>
-                                    <input type="text" class="form-control" name="PENGIRIMAN" id="PENGIRIMAN" autocomplete="off"
-                                        placeholder="">
+                                    <input type="text" class="form-control" name="PENGIRIMAN" id="PENGIRIMAN"
+                                        autocomplete="off" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" name="USERNAME" id="USERNAME" placeholder="" autocomplete="off"
-                                        required="">
+                                    <input type="text" class="form-control" name="USERNAME" id="USERNAME" placeholder=""
+                                        autocomplete="off" required="">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="totalHarga">Total Harga</label>
-                                    <input type="number" class="form-control" name="TOTAL" id="TOTAL" autocomplete="off" placeholder="">
+                                    <input type="number" class="form-control" name="TOTAL" id="TOTAL" autocomplete="off"
+                                        placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-4">
                                     <label for="diskon">Diskon</label>
-                                    <input type="number" class="form-control" name="DISKON" id="DISKON" autocomplete="off" placeholder="">
+                                    <input type="number" class="form-control" name="DISKON" id="DISKON"
+                                        autocomplete="off" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-3">
                                     <label for="inputAddress2">Biaya Admin</label>
-                                    <input type="number" class="form-control" name="ADMIN" id="ADMIN" autocomplete="off" placeholder="">
+                                    <input type="number" class="form-control" name="ADMIN" id="ADMIN" autocomplete="off"
+                                        placeholder="">
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="inputAddress2">Jumlah</label>
-                                    <input type="number" class="form-control" name="JUMLAH_PESAN" autocomplete="off" id="JUMLAH_PESAN"
-                                        placeholder="">
+                                    <input type="number" class="form-control" name="JUMLAH_PESAN" autocomplete="off"
+                                        id="JUMLAH_PESAN" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-3">
@@ -116,13 +120,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Custom Nama</label>
-                                    <input type="text" class="form-control" name="CUSTOM_NAMA" id="CUSTOM_NAMA" autocomplete="off"
-                                        placeholder="">
+                                    <input type="text" class="form-control" name="CUSTOM_NAMA" id="CUSTOM_NAMA"
+                                        autocomplete="off" placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Quote</label>
-                                    <input type="text" class="form-control" name="QUOTE" id="QUOTE" autocomplete="off" placeholder="">
+                                    <input type="text" class="form-control" name="QUOTE" id="QUOTE" autocomplete="off"
+                                        placeholder="">
                                 </div>
                                 <div class="form-group col-md-1">
                                     <label for="inputJuml">Qty</label>
@@ -133,12 +138,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-5">
                                     <label for="inputAddress2">Catatan</label>
-                                    <input type="text" class="form-control" name="NOTE" id="NOTE" autocomplete="off" placeholder="">
+                                    <input type="text" class="form-control" name="NOTE" id="NOTE" autocomplete="off"
+                                        placeholder="">
                                 </div>
 
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" name="RESI" required="">
+                                    <input type="file" name="RESI">
                                 </div>
                             </div>
                             <div class="form-row">

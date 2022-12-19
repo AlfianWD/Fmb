@@ -174,18 +174,41 @@ class admin extends CI_Controller
 		$qr = $this->ciqrcode->generate($params);
 
 		if (!$this->upload->do_upload('RESI')) {
-			$data['market'] = $this->data_model->getMarket();
-			$data['warna'] = $this->data_model->getWarna();
-			$data['barang'] = $this->data_model->getBarang();
-			$data['varian'] = $this->data_model->getVarian();
+			$resi = $this->upload->data();
+			$resi = $resi['file_name'];
+			$ADMIN_STATUS = 'Belom';
+			$DESAIN_STATUS = 'Belom';
+			$PRODUKSI_STATUS = 'Belom';
+			$PACKING_STATUS = 'Belom';
+			$data = array(
+				'ID_PESAN' => $id_pesan,
+				'TGL_PESAN' => date('Y-m-d'),
+				'USERNAME' => $username,
+				'TOTAL_BAYAR' => $total,
+				'DISKON' => $diskon,
+				'QR_CODE' => $qr,
+				'PENGIRIMAN' => $pengiriman,
+				'QTY' => $qty,
+				'CUSTOM_NM' => $custom_nama,
+				'QUOTE' => $quote,
+				'JML_PESAN' => $jml_pesan,
+				'NOTE' => $note,
+				'RESI' => $resi,
+				'ADMIN_STATUS' => $ADMIN_STATUS,
+				'DESAIN_STATUS' => $DESAIN_STATUS,
+				'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
+				'PACKING_STATUS' => $PACKING_STATUS,
+				'ID_WARNA' => $id_warna,
+				'ID_MARKET' => $id_market,
+				'ID_BARANG' => $id_barang,
+				'ID_VARIAN' => $id_varian,
+			);
+			$simpan = $this->data_model->add_pesanan($data);
 
-			$_SESSION['gagal'] = "Data gagal di simpan";
-
-			$this->load->view('admin-partials/header');
-			$this->load->view('admin-partials/side-bar');
-			$this->load->view('admin-partials/top-bar');
-			$this->load->view('admin-partials/crud/tambah_pesanan', $data);
-			$this->load->view('admin-partials/footer');
+			if ($simpan) {
+				$_SESSION['eksekusi'] = " Data berhasil di simpan";
+			}
+			redirect('admin/pesanan');
 		} else {
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
@@ -223,6 +246,21 @@ class admin extends CI_Controller
 			}
 			redirect('admin/pesanan');
 		}
+	}
+
+	public function edit_pesanan($id_pesan)
+	{
+		$this->load->helper('url');
+		$this->load->model('data_model');
+
+		$where = array('ID_PESAN' => $id_pesan);
+		$data['pesanan'] = $this->data_model->edit_pesanan($where, 'detail_pesanan')->result();
+
+		$this->load->view('admin-partials/header');
+		$this->load->view('admin-partials/side-bar');
+		$this->load->view('admin-partials/top-bar');
+		$this->load->view('admin-partials/crud/edit_pesanan', $data);
+		$this->load->view('admin-partials/footer');
 	}
 
 	public function hapus_pesanan($id_pesan)

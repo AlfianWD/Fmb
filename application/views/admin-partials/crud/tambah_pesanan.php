@@ -14,16 +14,6 @@
                         <a href="<?php echo site_url('admin/pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
                     </div>
                     <div class="card-body">
-                            <?php
-                                if(isset($_SESSION['gagal'])):
-                            ?>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    Data gagal Tersimpan, silakan masukan file resi terlebih!
-                                </div>
-                            <?php
-                                session_destroy();
-                                endif;
-                            ?>  
                         <form action="<?php echo base_url('admin/simpan_pesanan'); ?>" enctype="multipart/form-data" method="POST">
                             <div class="form-row">
                                 <div class="form-group col-md-5">
@@ -138,7 +128,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="exampleFormControlFile1">Upload Resi</label>
-                                    <input type="file" name="RESI" required="">
+                                    <input type="file" name="RESI">
                                 </div>
                             </div>
                             <div class="form-row">

@@ -53,6 +53,11 @@ class Data_model extends CI_Model
         return $this->db->insert('detail_pesanan', $data);
     }
 
+    function edit_pesanan($where, $table)
+    {
+        return $this->db->get_where($table, $where);
+    }
+
     function delete_pesanan($id_pesan)
     {
         $this->db->where('ID_PESAN', $id_pesan);

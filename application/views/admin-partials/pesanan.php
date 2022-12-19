@@ -81,31 +81,12 @@
                                  <td><?php echo $data['QUOTE']; ?></td>
                                  <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapus<?php echo $data['ID_PESAN'] ?>">
-                                        Hapus
-                                    </button>
-
-                                    <!-- Modal Hapus-->
-                                    <div class="modal fade" id="hapus<?php echo $data['ID_PESAN'] ?>" tabindex="-1" aria-labelledby="hapus<?php echo $data['ID_PESAN'] ?>Label" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="hapus<?php echo $data['ID_PESAN'] ?>Label">Peringatan</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Apakah Anda Yakin Ingin Menghapus Data Dari <?php echo $data['ID_PESAN'] ?> Ini ?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">tidak</button>
-                                            <a href="<?php echo base_url("admin/hapus_pesanan/"). $data['ID_PESAN'] ?>" 
+                                    <a href="<?php echo site_url('admin/edit_pesanan/' . $data['ID_PESAN']) ?>"
+                                        type="button" class="btn btn-warning">Edit</a>
+                                    </br>
+                                    </br>
+                                    <a href="<?php echo base_url("admin/hapus_pesanan/"). $data['ID_PESAN'] ?>" 
                                                class="btn btn-danger">Hapus</a>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
                                  </td>
                                 </tr>
                              </tbody>

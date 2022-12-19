@@ -8,11 +8,20 @@
                      <a class="btn btn-primary btn-sm float-right" href="<?= base_url(); ?>admin/tambah_pesanan">Tambah Pesanan</a>
                  </div>
                  <div class="card-body">
-                 <?php
+                <?php
                     if(isset($_SESSION['eksekusi'])):
                 ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         Data Berhasil Tersimpan!
+                    </div>
+                <?php
+                    session_destroy();
+                ?>
+                <?php
+                    elseif(isset($_SESSION['delete'])):
+                ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Data Berhasil Terhapus!
                     </div>
                 <?php
                     session_destroy();

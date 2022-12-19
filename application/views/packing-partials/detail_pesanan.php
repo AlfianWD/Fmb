@@ -19,7 +19,7 @@
                                     <?php
                                     foreach ($pesanan as $data) {
                                     ?>
-                                    <form action="<?php echo base_url('packing/qc'); ?>" method="post">
+                                    <form action="<?php echo base_url('Packing/qc'); ?>" method="post">
                                         <div class="form-row">
                                             <label for="kodePesanan" class="col-lg-3 col-form-label">Catatan :
                                             </label>
@@ -112,7 +112,7 @@
                                         </br>
                                         <div class="col-auto my-2">
                                             <input type="submit" class="btn btn-primary" value="Next">
-                                            <a href="<?php echo base_url('packing/detail_pesanann'); ?>" type="submit"
+                                            <a href="<?php echo base_url('Packing/detail_pesanann'); ?>" type="submit"
                                                 class="btn btn-md btn-success">Kembali</a>
                                             <!-- <button onclick="return printResi('resi')" class="btn btn-primary">
                                                 <i class="fa fa-print">Print</i></button> -->

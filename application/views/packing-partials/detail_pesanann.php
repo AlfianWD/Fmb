@@ -36,7 +36,7 @@
                                        
                                     ?>
                                         <td><?= $data['ID_PESAN']; ?></td>
-                                        <td> <a href="<?php echo site_url('packing/detail_pesanan/' . $data['ID_PESAN']) ?>"
+                                        <td> <a href="<?php echo site_url('Packing/detail_pesanan/' . $data['ID_PESAN']) ?>"
                                             type="button" class="btn btn-sm btn-success">Tampilkan Data</a>
                                         </td>
                                     <?php } ?>
@@ -46,7 +46,7 @@
                                 </table>
                                 </br>
                                 <div class="col-auto my-2">
-                                    <a href="<?php echo base_url('packing/dashboard'); ?>" type="submit" class="btn btn-md btn-primary">Kembali</a>
+                                    <a href="<?php echo base_url('Packing/dashboard'); ?>" type="submit" class="btn btn-md btn-primary">Kembali</a>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <div class="col-12">
                             <div class="col-12">
                                 <div class="col-12">
-                                <form action="<?= base_url('packing/detail_pesanann')?>" method="POST">
+                                <form action="<?= base_url('Packing/detail_pesanann')?>" method="POST">
                                     <div class="input-group mb-3">
                                     <input type="text" class="form-control" placeholder="Search Keyword"
                                     name="id" id="key" autocomplete="off" autofocus>

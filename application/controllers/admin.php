@@ -111,7 +111,7 @@ class admin extends CI_Controller
 
 		//config
 		$config['total_rows'] = $this->order->countAllPesanan();
-		$config['per_page'] = 2;
+		$config['per_page'] = 10;
 
 		//initialize
 		$this->pagination->initialize($config);
@@ -177,6 +177,7 @@ class admin extends CI_Controller
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
 			$ADMIN_STATUS = 'Belom';
+			$RESI_STATUS = 'Belom';
 			$DESAIN_STATUS = 'Belom';
 			$PRODUKSI_STATUS = 'Belom';
 			$PACKING_STATUS = 'Belom';
@@ -195,6 +196,7 @@ class admin extends CI_Controller
 				'NOTE' => $note,
 				'RESI' => $resi,
 				'ADMIN_STATUS' => $ADMIN_STATUS,
+				'RESI_STATUS' => $RESI_STATUS,
 				'DESAIN_STATUS' => $DESAIN_STATUS,
 				'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
 				'PACKING_STATUS' => $PACKING_STATUS,
@@ -213,6 +215,7 @@ class admin extends CI_Controller
 			$resi = $this->upload->data();
 			$resi = $resi['file_name'];
 			$ADMIN_STATUS = 'Belom';
+			$RESI_STATUS = 'Belom';
 			$DESAIN_STATUS = 'Belom';
 			$PRODUKSI_STATUS = 'Belom';
 			$PACKING_STATUS = 'Belom';
@@ -231,6 +234,7 @@ class admin extends CI_Controller
 				'NOTE' => $note,
 				'RESI' => $resi,
 				'ADMIN_STATUS' => $ADMIN_STATUS,
+				'RESI_STATUS' => $RESI_STATUS,
 				'DESAIN_STATUS' => $DESAIN_STATUS,
 				'PRODUKSI_STATUS' => $PRODUKSI_STATUS,
 				'PACKING_STATUS' => $PACKING_STATUS,

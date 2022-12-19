@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class packing extends CI_Controller
+class Packing extends CI_Controller
 {
 
     public function __construct()
@@ -41,20 +41,71 @@ class packing extends CI_Controller
     }
 
     public function pesanan_packing()
-    {
-        $this->load->helper("url");
-        $this->load->database();
-        $query = $this->db->get('table_pesanan');
-        $this->db->select('*');
-        $this->db->from('table_pesanan');
-        $query = $this->db->get();
-        $data['data_pesan'] = $query->result();
-        $this->load->view('packing-partials/header');
-        $this->load->view('packing-partials/side-bar');
-        $this->load->view('packing-partials/top-bar');
-        $this->load->view('packing-partials/pesanan', $data);
-        $this->load->view('packing-partials/footer');
-    }
+	{
+		$this->load->helper("form", "url");
+		$this->load->database();
+
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+
+		// ambil data viewer
+		if ($this->input->post('submit')) {
+			$data['keyword'] = $this->input->post('keyword');
+			$this->session->set_userdata('keyword', $data['keyword']);
+		}
+		$data['keyword'] = $this->session->userdata('keyword');
+
+		// config
+		$this->db->where('ID_PESAN',  $data['keyword']);
+		$this->db->from('table_pesanan');
+		$config['total_rows'] = $this->db->count_all_results();
+		$config['per_page'] = 10;
+
+
+		//initialize
+		$this->pagination->initialize($config);
+
+		$data['start'] = $this->uri->segment(3);
+		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
+
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/pesanan', $data);
+		$this->load->view('packing-partials/footer');
+	}
+
+    public function refresh_pesanan()
+	{
+		$this->load->helper("form", "url");
+		$this->load->database();
+
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+
+		$data['keyword'] = $this->input->post('keyword');
+		$data['keyword'] = $this->session->userdata('keyword');
+
+		//config
+		$config['total_rows'] = $this->order->countAllPesanan();
+		$config['per_page'] = 10;
+
+		//initialize
+		$this->pagination->initialize($config);
+
+		$data['start'] = $this->uri->segment(3);
+		$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start']);
+
+		$this->load->view('packing-partials/header');
+		$this->load->view('packing-partials/side-bar');
+		$this->load->view('packing-partials/top-bar');
+		$this->load->view('packing-partials/pesanan', $data);
+		$this->load->view('packing-partials/footer');
+	}
 
     public function detail_pesanann()
 	{

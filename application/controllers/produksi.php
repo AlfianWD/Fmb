@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class produksi extends CI_Controller
+class Produksi extends CI_Controller
 {
 
     public function __construct()

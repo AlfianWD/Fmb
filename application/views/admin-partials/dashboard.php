@@ -109,6 +109,7 @@
                                     <th>Username</th>
                                     <th>Barang</th>
                                     <th>Total</th>
+                                    <th>Status Resi</th>
                                     <th>Status Desain</th>
                                     <th>Status Cetak</th>
                                     <th>Status Produksi</th>
@@ -124,6 +125,7 @@
                                         <td>" . $row[] = $data->USERNAME . "</td>
                                         <td>" . $row[] = $data->NM_BARANG . "</td>
                                         <td>" . $row[] = 'Rp.' . number_format($data->TOTAL_BAYAR, 0, ",", ".") . "</td>
+                                        <td>" . $row[] = $data->RESI_STATUS . "</td>
                                         <td>" . $row[] = $data->DESAIN_STATUS . "</td>
                                         <td>" . $row[] = $data->ADMIN_STATUS . "</td>
                                         <td>" . $row[] = $data->PRODUKSI_STATUS . "</td>

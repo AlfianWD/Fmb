@@ -13,7 +13,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <label class="col-form-label text-md-left">Upload File</label>
+                                            <label class="form-label text-md-left">Upload File</label>
+                                            </br>
                                             <input type="file" class="form-control" name="file" accept=".xls, .xlsx"
                                                 required>
                                             <div class="mt-1">

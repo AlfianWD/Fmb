@@ -74,7 +74,7 @@ class desainer extends CI_Controller
         $this->load->model('data_model');
         $config['upload_path']          = FCPATH . './uploads/desain/';
         $config['allowed_types']        = 'jpeg|jpg|png|pdf';
-        $config['max_size']             = 10240;
+        $config['max_size']             = 500240;
 
         $this->load->library('upload', $config);
 

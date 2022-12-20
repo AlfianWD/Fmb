@@ -40,6 +40,90 @@ class Packing extends CI_Controller
         $this->load->view('packing-partials/footer');
     }
 
+	public function edit_resi($id_pesan)
+    {
+        $where = array('ID_PESAN' => $id_pesan);
+        $data['pesanan'] = $this->data_model->getPesanan($where, 'table_pesanan')->result();
+
+        $this->load->view('packing-partials/header');
+        $this->load->view('packing-partials/side-bar');
+        $this->load->view('packing-partials/top-bar');
+        $this->load->view('packing-partials/add_resi', $data);
+        $this->load->view('packing-partials/footer');
+    }
+
+	function simpan_resi()
+    {
+        $this->load->model('data_model');
+		$config['upload_path']          = FCPATH . './uploads/resi/';
+		$config['allowed_types']        = 'jpeg|jpg|png|pdf';
+		$config['max_size']             = 10240;
+
+        $this->load->library('upload', $config);
+
+        $id_pesan = $this->input->post('ID_PESAN');
+        $RESI =  $this->input->post('RESI');
+        $RESI_STATUS = $this->input->post('RESI_STATUS');
+
+        if (!$this->upload->do_upload('RESI')) {
+            $this->load->helper("form", "url");
+		$this->load->database();
+
+		$this->load->model('Order_model', 'order');
+
+		//Pagination
+		$this->load->library('pagination');
+
+		// ambil data viewer
+		if ($this->input->post('submit')) {
+			$data['keyword'] = $this->input->post('keyword');
+			$this->session->set_userdata('keyword', $data['keyword']);
+			}
+			$data['keyword'] = $this->session->userdata('keyword');
+
+			// config
+			$this->db->where('ID_PESAN',  $data['keyword']);
+			$this->db->from('table_pesanan');
+			$config['total_rows'] = $this->db->count_all_results();
+			$config['per_page'] = 10;
+
+
+			//initialize
+			$this->pagination->initialize($config);
+
+			$data['start'] = $this->uri->segment(3);
+			$data['pesanan'] = $this->order->getPesanan($config['per_page'], $data['start'],  $data['keyword']);
+
+			$this->load->view('packing-partials/header');
+			$this->load->view('packing-partials/side-bar');
+			$this->load->view('packing-partials/top-bar');
+			$this->load->view('packing-partials/pesanan', $data);
+			$this->load->view('packing-partials/footer');
+        } else {
+            $pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'table_pesanan')->result();
+            unlink(FCPATH."/uploads/resi/".$pesanan[0]->RESI);
+
+            $resi = $this->upload->data();
+            $RESI = $resi['file_name'];
+            $RESI_STATUS = 'Selesai';
+
+            $data = array(
+                'RESI' => $RESI,
+                'RESI_STATUS' => $RESI_STATUS
+            );
+
+            $where = array(
+                'ID_PESAN' => $id_pesan
+            );
+
+            $this->data_model->save_desain($where, $data, 'detail_pesanan');
+
+            $_SESSION['disimpan'] = "Perubahan data berhasil di simpan";
+
+            redirect('Packing/pesanan_packing');
+        }
+    }
+
     public function pesanan_packing()
 	{
 		$this->load->helper("form", "url");

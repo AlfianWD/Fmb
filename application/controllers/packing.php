@@ -67,12 +67,12 @@ class Packing extends CI_Controller
 
         if (!$this->upload->do_upload('RESI')) {
             $this->load->helper("form", "url");
-		$this->load->database();
+			$this->load->database();
 
-		$this->load->model('Order_model', 'order');
+			$this->load->model('Order_model', 'order');
 
-		//Pagination
-		$this->load->library('pagination');
+			//Pagination
+			$this->load->library('pagination');
 
 		// ambil data viewer
 		if ($this->input->post('submit')) {

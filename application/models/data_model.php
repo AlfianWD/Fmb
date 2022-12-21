@@ -58,6 +58,11 @@ class Data_model extends CI_Model
         return $this->db->get_where($table, $where);
     }
 
+    function save_pesanan($id_pesan, $data)
+    {
+        return $this->db->update("detail_pesanan", $data, $id_pesan);
+    }
+
     function delete_pesanan($id_pesan)
     {
         $this->db->where('ID_PESAN', $id_pesan);

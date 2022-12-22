@@ -254,11 +254,18 @@ class admin extends CI_Controller
 
 	public function edit_pesanan($id_pesan)
 	{
+		
 		$this->load->helper('url');
 		$this->load->model('data_model');
 
+		$data['market'] = $this->data_model->getMarket();
+		$data['warna'] = $this->data_model->getWarna();
+		$data['barang'] = $this->data_model->getBarang();
+		$data['varian'] = $this->data_model->getVarian();
+
 		$where = array('ID_PESAN' => $id_pesan);
 		$data['pesanan'] = $this->data_model->edit_pesanan($where, 'detail_pesanan')->result();
+		$data['orderan'] = $this->data_model->edit_pesanan($where, 'table_pesanan')->result();
 
 		$this->load->view('admin-partials/header');
 		$this->load->view('admin-partials/side-bar');
@@ -266,6 +273,100 @@ class admin extends CI_Controller
 		$this->load->view('admin-partials/crud/edit_pesanan', $data);
 		$this->load->view('admin-partials/footer');
 	}
+
+	function simpan_edit_pesanan()
+    {
+        $this->load->model('data_model');
+		$config['upload_path']          = FCPATH . './uploads/resi/';
+		$config['allowed_types']        = 'jpeg|jpg|png|pdf';
+		$config['max_size']             = 10240;
+
+		$this->load->library('upload', $config);
+
+        $id_pesan = $this->input->post('ID_PESAN');
+		$username = $this->input->post('USERNAME');
+		$total = $this->input->post('TOTAL');
+		$diskon = $this->input->post('DISKON');
+		$pengiriman = $this->input->post('PENGIRIMAN');
+		$custom_nama = $this->input->post('CUSTOM_NAMA');
+		$quote = $this->input->post('QUOTE');
+		$note = $this->input->post('NOTE');
+		$jml_pesan = $this->input->post('JUMLAH_PESAN');
+		$admin = $this->input->post('ADMIN');
+		$qty = $this->input->post('QTY');
+		$id_warna = $this->input->post('WARNA');
+		$id_market = $this->input->post('MARKETPLACE');
+		$id_barang = $this->input->post('BARANG');
+		$id_varian = $this->input->post('VARIAN');
+        $resi =  $this->input->post('RESI');
+        $RESI_STATUS = $this->input->post('RESI_STATUS');
+
+        if (!$this->upload->do_upload('RESI')) {
+			$RESI_STATUS = 'Belom';
+			$data = array(
+				'USERNAME' => $username,
+				'TOTAL_BAYAR' => $total,
+				'DISKON' => $diskon,
+				'PENGIRIMAN' => $pengiriman,
+				'QTY' => $qty,
+				'CUSTOM_NM' => $custom_nama,
+				'QUOTE' => $quote,
+				'JML_PESAN' => $jml_pesan,
+				'NOTE' => $note,
+				'ID_WARNA' => $id_warna,
+				'ID_MARKET' => $id_market,
+				'ID_BARANG' => $id_barang,
+				'ID_VARIAN' => $id_varian,
+				'RESI_STATUS' => $RESI_STATUS
+            );
+
+            $where = array(
+                'ID_PESAN' => $id_pesan
+            );
+
+			$simpan =  $this->data_model->save_pesanan($where, $data, 'table_pesanan');
+
+			if ($simpan) {
+				$_SESSION['eksekusi'] = " Data berhasil di simpan";
+			}
+			redirect('admin/pesanan');
+        } else {
+            $pesanan = $this->data_model->getPesanan(array('ID_PESAN' => $id_pesan), 'detail_pesanan')->result();
+            unlink(FCPATH."/uploads/resi/".$pesanan[0]->RESI);
+
+            $resi = $this->upload->data();
+            $resi = $resi['file_name'];
+            $RESI_STATUS = 'Selesai';
+
+            $data = array(
+				'USERNAME' => $username,
+				'TOTAL_BAYAR' => $total,
+				'DISKON' => $diskon,
+				'PENGIRIMAN' => $pengiriman,
+				'QTY' => $qty,
+				'CUSTOM_NM' => $custom_nama,
+				'QUOTE' => $quote,
+				'JML_PESAN' => $jml_pesan,
+				'NOTE' => $note,
+				'ID_WARNA' => $id_warna,
+				'ID_MARKET' => $id_market,
+				'ID_BARANG' => $id_barang,
+				'ID_VARIAN' => $id_varian,
+                'RESI' => $resi,
+                'RESI_STATUS' => $RESI_STATUS
+            );
+
+            $where = array(
+                'ID_PESAN' => $id_pesan
+            );
+
+            $this->data_model->save_pesanan($where, $data, 'table_pesanan');
+
+            $_SESSION['eksekusi'] = "Perubahan data berhasil di simpan";
+
+            redirect('admin/pesanan');
+        }
+    }
 
 	public function hapus_pesanan($id_pesan)
 	{

@@ -80,7 +80,7 @@
                                  <td><?php echo $data['QUOTE']; ?></td>
                                  <td>
                                     <!-- Button trigger modal -->
-                                    <a href="<?php echo site_url('packing/edit_pesanan/' . $data['ID_PESAN']) ?>"
+                                    <a href="<?php echo site_url('packing/edit_resi/' . $data['ID_PESAN']) ?>"
                                         type="button" class="btn btn-warning">Edit</a>
                                     </br>
                                  </td>

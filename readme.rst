@@ -14,6 +14,10 @@ technology yang dipakai di website ini terdiri dari :
 2. php (codeigniter 3)
 3. css (boostrap 4)
 
+1. HTML
+2. CSS
+3. JS
+
 **************************
 Requierment
 **************************
